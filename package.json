@@ -1,0 +1,17 @@
+{
+  "name": "mywork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "dev": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "tailwindcss": "^4.2.4"
+  }
+}
