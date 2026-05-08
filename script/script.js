@@ -250,6 +250,14 @@ completedTasksBtn.addEventListener("click", function(){
   })
   renderTodos(filteredTodo);
 })
+//pendingTasks 
+pendingTasksBtn.addEventListener("click", function(){
+  let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo=>{
+    return todo.Completed === false;
+  })
+  renderTodos(filteredTodo);
+})
 // search 
 searchTodo.addEventListener("input", function(){
   let allTodos = getTodos();
