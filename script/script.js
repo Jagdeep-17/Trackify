@@ -34,7 +34,7 @@ function loadTodos(todo) {
 
   // UPDATED CARD UI
   todoCard.className =
-    "group relative rounded-2xl border border-zinc-800 bg-zinc-900/90 backdrop-blur-sm p-5 shadow-[0_0_25px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/40 hover:shadow-violet-500/10";
+    "group relative rounded-2xl border border-zinc-800 bg-zinc-900/90 backdrop-blur-sm p-5 shadow-[0_0_25px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/40 hover:shadow-violet-500/10 hover:z-10";
 
   todoCard.innerHTML = `
   
@@ -98,7 +98,7 @@ function renderTodos(todos = getTodos()){
 function menutemplate(id){
   return `
   
-<div class="relative inline-block group/menu">
+<div class="relative inline-block group/menu ">
 
   
   <button
