@@ -4,120 +4,164 @@ const submitBtn = document.querySelector(".submit");
 const title = document.querySelector("#title");
 const description = document.querySelector("#description");
 const savedTodoBox = document.querySelector(".savedTodo");
-const deleteBtn = document.querySelector("[data-delete]")
+const searchTodo = document.querySelector(".searchTodo");
+const allTaskBtn = document.querySelector(".allTasks");
+const completedTasksBtn = document.querySelector(".completedTasks");
+const pendingTasksBtn = document.querySelector(".pendingTasks");
 
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
 });
 
-function loadTodos(todo, index) {
+
+// helpers for localStorage
+function getTodos(){
+  return JSON.parse(localStorage.getItem("todos")) || [];
+}
+
+function saveTodos(todos){
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+
+// render one todo
+function loadTodos(todo) {
   const todoCard = document.createElement("div");
 
+  // UPDATED CARD UI
   todoCard.className =
-    "bg-amber-300 p-4 rounded-2xl shadow space-y-2";
+    "group relative rounded-2xl border border-zinc-800 bg-zinc-900/90 backdrop-blur-sm p-5 shadow-[0_0_25px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/40 hover:shadow-violet-500/10";
 
   todoCard.innerHTML = `
-  <div>
-  <div class="flex flex-col gap-3">
-    <h3 class="text-lg font-bold wrap-break-word">${todo.Title}</h3>
-    <p class="text-sm wrap-break-word">${todo.Description}</p>
-    <small class="text-xs text-gray-700">${todo.Date}</small>
+  
+    <div class="relative z-10 flex items-start justify-between gap-4">
+      
+      <div class="flex flex-col gap-3 flex-1 min-w-0">
+        
+        <h3 class="text-lg font-semibold text-zinc-100 break-words leading-snug">
+          ${todo.Title}
+        </h3>
+
+        <p class="text-sm text-zinc-400 break-words leading-relaxed">
+          ${todo.Description}
+        </p>
+
+        <div class="flex items-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+
+          <small class="text-xs tracking-wide text-zinc-500">
+            ${todo.Date}
+          </small>
+
+          <span
+          class="rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-300 backdrop-blur-md"
+        >
+          ${todo.Tag}
+        </span>
+        </div>
+
+      </div>
+
+      ${menutemplate(todo.Id)}
+
     </div>
-    ${menutemplate(index)}
-    </div>
+
+    <!-- HOVER GLOW -->
+    <div class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/5 via-transparent to-fuchsia-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
   `;
+
+  // COMPLETED STATE
+  if (todo.Completed == true) {
+    todoCard.classList.add("grayscale", "opacity-60");
+    
+  }
 
   savedTodoBox.appendChild(todoCard);
 }
-function menutemplate(index){
-    return `
-<div class="relative inline-block group">
 
+
+// render all todos
+function renderTodos(todos = getTodos()){
+  savedTodoBox.innerHTML = "";
+
+  todos.forEach(todo => {
+    loadTodos(todo);
+  });
+}
+
+
+// YOUR SAME TEMPLATE (unchanged)
+function menutemplate(id){
+  return `
+  
+<div class="relative inline-block group/menu">
+
+  <!-- MENU BUTTON -->
   <button
-    class="w-10 h-10 rounded-xl bg-[#1e2128] hover:bg-[#2a2d35] flex flex-col items-center justify-center gap-1 transition-all duration-300"
+    class="w-10 h-10 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:scale-105 active:scale-95"
   >
-    <span class="w-1 h-1 bg-white rounded-full"></span>
-    <span class="w-1 h-1 bg-white rounded-full"></span>
-    <span class="w-1 h-1 bg-white rounded-full"></span>
+    <span class="w-1 h-1 bg-zinc-200 rounded-full"></span>
+    <span class="w-1 h-1 bg-zinc-200 rounded-full"></span>
+    <span class="w-1 h-1 bg-zinc-200 rounded-full"></span>
   </button>
 
+  <!-- DROPDOWN -->
   <div
-    class="absolute right-0 top-12 w-[220px] bg-gradient-to-br from-[#242832] to-[#251c28] rounded-2xl p-3 shadow-2xl opacity-0 invisible scale-95 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-300 z-50"
+    class="absolute right-0 top-12 z-50 w-[220px] rounded-2xl border border-zinc-700 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible scale-95 transition-all duration-200 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:scale-100"
   >
 
     <ul class="flex flex-col gap-1">
 
+      <!-- EDIT -->
       <li>
         <button
-          data-edit="${index}"
-          class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#7e8590] font-semibold hover:bg-[#5353ff] hover:text-white transition-all duration-300 active:scale-95"
+          data-edit="${id}"
+          class="w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-zinc-300 hover:bg-violet-600 hover:text-white transition-all duration-200"
         >
-          <svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
-            <path d="m15 5 4 4"></path>
-          </svg>
           Edit
         </button>
       </li>
 
+      <!-- COMPLETE -->
       <li>
         <button
-          data-member="${index}"
-          class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#7e8590] font-semibold hover:bg-[#5353ff] hover:text-white transition-all duration-300 active:scale-95"
+          data-mark-as-completed="${id}"
+          class="w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-zinc-300 hover:bg-emerald-600 hover:text-white transition-all duration-200"
         >
-          <svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M2 21a8 8 0 0 1 13.292-6"></path>
-            <circle cx="10" cy="8" r="5"></circle>
-            <path d="M19 16v6"></path>
-            <path d="M22 19h-6"></path>
-          </svg>
-          Add Member
+          Mark As Completed
         </button>
       </li>
 
-      <div class="border-t border-[#42434a] my-1"></div>
+      <div class="my-1 border-t border-zinc-700"></div>
 
+      <!-- SETTINGS -->
       <li>
         <button
-          data-settings="${index}"
-          class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#7e8590] font-semibold hover:bg-[#5353ff] hover:text-white transition-all duration-300 active:scale-95"
+          data-settings="${id}"
+          class="w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-zinc-300 hover:bg-zinc-700 hover:text-white transition-all duration-200"
         >
-          <svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
           Settings
         </button>
       </li>
 
+      <!-- DELETE -->
       <li>
         <button
-          data-delete="${index}"
-          class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#7e8590] font-semibold hover:bg-[#8e2a2a] hover:text-white transition-all duration-300 active:scale-95"
+          data-delete="${id}"
+          class="w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-zinc-300 hover:bg-red-600 hover:text-white transition-all duration-200"
         >
-          <svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M3 6h18"></path>
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-            <line x1="10" x2="10" y1="11" y2="17"></line>
-            <line x1="14" x2="14" y1="11" y2="17"></line>
-          </svg>
           Delete
         </button>
       </li>
 
-      <div class="border-t border-[#42434a] my-1"></div>
+      <div class="my-1 border-t border-zinc-700"></div>
 
+      <!-- TEAM -->
       <li>
         <button
-          data-team="${index}"
-          class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[#7e8590] font-semibold hover:bg-[#382d47] hover:text-[#bd89ff] transition-all duration-300 active:scale-95"
+          data-team="${id}"
+          class="w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-zinc-300 hover:bg-fuchsia-700 hover:text-white transition-all duration-200"
         >
-          <svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 21a8 8 0 0 0-16 0"></path>
-            <circle cx="10" cy="8" r="5"></circle>
-            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path>
-          </svg>
           Team Access
         </button>
       </li>
@@ -127,50 +171,149 @@ function menutemplate(index){
   </div>
 
 </div>
-`
-
+`;
 }
 
-window.addEventListener("DOMContentLoaded", function () {
-  let storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
 
-  storedTodos.forEach(function (todo) {
-    loadTodos(todo);
-  });
+// load on start
+window.addEventListener("DOMContentLoaded", function () {
+  renderTodos();
 });
 
+
+// clear inputs
 function clearFields() {
   title.value = "";
   description.value = "";
 }
 
+
+// delete logic
+savedTodoBox.addEventListener("click", function(e){
+  const deleteBtn = e.target.closest("[data-delete]");
+  if(!deleteBtn) return;
+
+  const id = Number(deleteBtn.dataset.delete);
+ let todos = getTodos();
+ todos = todos.filter(todo => todo.Id !==id)
+  saveTodos(todos);
+  renderTodos() ; // brings back to the ui 
+});
+
+
+
+// editing logic 
+let currentlyEditingId = null;
+savedTodoBox.addEventListener("click", function(e){
+const editBtn = e.target.closest("[data-edit]")
+if(!editBtn) return;
+
+const id = Number(editBtn.dataset.edit)
+let todos = getTodos();
+ let editingTodo = todos.find(function (todo) {
+  return todo.Id === id;
+})
+ title.value = editingTodo.Title
+description.value = editingTodo.Description
+
+currentlyEditingId = editingTodo.Id
+  todoForm.classList.remove("hidden")
+
+
+})
+
+// mark as completed logic 
+savedTodoBox.addEventListener("click", function(e){
+const markAsCompletedBtn = e.target.closest("[data-mark-as-completed]");
+if(!markAsCompletedBtn)return;
+const id = Number(markAsCompletedBtn.dataset.markAsCompleted);
+let todos = getTodos();
+
+let markAsCompletedTodo  = todos.find(function(todo){
+return todo.Id === id;
+})
+markAsCompletedTodo.Completed = true;
+saveTodos(todos);
+renderTodos();
+
+})
+//allTasks
+allTaskBtn.addEventListener("click", function(){
+renderTodos()
+})
+//completedTasks 
+completedTasksBtn.addEventListener("click", function(){
+  let allTodos = getTodos();
+  let filteredTodo = allTodos.filter(todo =>{
+   return todo.Completed === true;
+    
+  })
+  renderTodos(filteredTodo);
+})
+// search 
+searchTodo.addEventListener("input", function(){
+  let allTodos = getTodos();
+   let enteredText = searchTodo.value.toLowerCase();
+  
+  if (enteredText === ""){
+ renderTodos(allTodos);
+ return;
+  }
+    let filteredTodo = allTodos.filter(todo =>{
+      let todoTitle = todo.Title.toLowerCase();
+      let todoDescription = todo.Description.toLowerCase();
+
+      return(
+        todoTitle.includes(enteredText) || todoDescription.includes(enteredText)
+      );
+    })
+  renderTodos(filteredTodo);
+})
+
+// create todo
 submitBtn.addEventListener("click", function (e) {
   e.preventDefault();
+
   let titleText = title.value.trim();
   let descriptionText = description.value.trim();
-  let date = new Date().toLocaleString();
-  let id = Date.now()
 
   if (titleText === "" || descriptionText === "") {
     alert("Input field is empty");
     return;
   }
 
+if (currentlyEditingId !== null) {
+  let allTodos = getTodos()
+  let editingTodo = allTodos.find(function (todo) {
+  return todo.Id === currentlyEditingId;
+})
+
+editingTodo.Title = titleText;
+ editingTodo.Description =descriptionText;
+ editingTodo.Date =  "Edited at " +new Date().toLocaleString();
+saveTodos(allTodos)
+renderTodos()
+currentlyEditingId = null;
+}
+ else {
   let todo = {
     Title: titleText,
     Description: descriptionText,
-    Date: date,
-    Id: id
+    Tag: "Personal",
+    Date: new Date().toLocaleString(),
+    Completed : false,
+    Id: Date.now()
   };
 
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
-
+  let todos = getTodos();
   todos.push(todo);
 
-  localStorage.setItem("todos", JSON.stringify(todos));
+  saveTodos(todos);
 
-  loadTodos(todo);
+  renderTodos();
+}
+
+  
   clearFields();
   todoForm.classList.add("hidden");
 });
-

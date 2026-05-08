@@ -8,21 +8,24 @@
   <script src="script/script.js" defer></script>
 </head>
 
-<body class="bg-[#0f1115] text-white min-h-screen">
+<body class="min-h-screen bg-[#0f1115] bg-linear-to-br from-violet-950 via-black to-yellow-950 text-white">
 
   <div class="flex min-h-screen">
 
-    <aside class="w-[280px] bg-[#111318] border-r border-white/10 px-5 py-6 flex flex-col gap-6">
+    <aside class="flex w-[280px] flex-col gap-6 border-r border-white/10 bg-[#111318] px-5 py-6">
 
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center text-xl font-bold">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600 text-xl font-bold">
           ✓
         </div>
-        <h1 class="text-2xl font-semibold tracking-wide">My Work</h1>
+
+        <h1 class="text-2xl font-semibold tracking-wide">
+          My Work
+        </h1>
       </div>
 
       <button
-        class="create-todo flex items-center gap-4 bg-[#2c2f36] hover:bg-violet-600 transition-all duration-300 rounded-2xl px-5 py-4 font-medium shadow-lg"
+        class="create-todo flex items-center gap-4 rounded-2xl bg-[#2c2f36] px-5 py-4 font-medium shadow-lg transition-all duration-300 hover:bg-violet-600"
       >
         <span class="text-3xl leading-none">+</span>
         <span>Create</span>
@@ -31,40 +34,42 @@
       <div class="space-y-2">
 
         <button
-          class="w-full text-left px-4 py-3 rounded-xl bg-blue-700/80 font-medium"
+          class="w-full rounded-xl bg-blue-700/80 px-4 py-3 text-left font-medium allTasks"
         >
           All Tasks
         </button>
 
-        <button
-          class="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 transition"
-        >
-          Important
-        </button>
+        
 
         <button
-          class="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 transition"
+          class="w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5 completedTasks"
         >
           Completed
         </button>
 
+        <button
+          class="w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5 pendingTasks"
+        >
+          Pending
+        </button>
+
       </div>
 
-      <div class="pt-4 border-t border-white/10 space-y-3">
+      <div class="space-y-3 border-t border-white/10 pt-4">
 
         <h2 class="text-sm uppercase tracking-wider text-gray-400">
           Quick Lists
         </h2>
 
-        <button class="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 transition">
+        <button class="w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
           Daily Work
         </button>
 
-        <button class="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 transition">
+        <button class="w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
           Study Goals
         </button>
 
-        <button class="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 transition">
+        <button class="w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
           Personal Tasks
         </button>
 
@@ -72,16 +77,77 @@
 
     </aside>
 
-    <main class="flex-1 px-8 py-8">
+    <main class="relative flex-1 px-8 py-8">
 
-      <div class="max-w-5xl mx-auto space-y-6">
+      <div class="mx-auto max-w-5xl space-y-6">
 
-        <div class="flex justify-between items-center">
-          <h2 class="text-4xl font-bold">Dashboard</h2>
-          <p class="text-gray-400">Stay productive today</p>
+        <div class="flex items-center justify-between">
+
+          <p class="text-gray-400">
+            Stay productive today
+          </p>
+
+          <div class="relative w-[320px]">
+
+            <div
+              class="group relative flex items-center overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-xl transition-all duration-300 hover:border-violet-500/40 focus-within:border-violet-400/60 focus-within:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
+            >
+
+              <div
+                class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-focus-within:opacity-100"
+              >
+                <div
+                  class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-violet-500/10 to-transparent blur-xl"
+                ></div>
+              </div>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="absolute left-4 h-5 w-5 text-zinc-500 transition-colors duration-300 group-focus-within:text-violet-400"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+
+              <input
+                type="text"
+                placeholder="Search your tasks..."
+                class="searchTodo h-14 w-full bg-transparent pl-12 pr-14 text-[15px] font-medium tracking-wide text-white outline-none placeholder:text-zinc-500"
+              />
+
+              <button
+                class="absolute right-2 flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-800 text-zinc-400 transition-all duration-300 hover:bg-violet-500/15 hover:text-violet-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 6h16M7 12h10m-7 6h4"
+                  />
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="todo hidden bg-[#171a20] border border-white/10 rounded-3xl p-6 max-w-xl shadow-2xl">
+        <div
+          class="todo fixed left-1/2 top-24 z-50 hidden w-[450px] -translate-x-1/2 rounded-3xl border border-white/10 bg-[#171a20]/95 p-6 shadow-[0_0_60px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+        >
+
           <form class="flex flex-col gap-4">
 
             <label for="title" class="text-sm text-gray-300">
@@ -91,7 +157,7 @@
             <input
               type="text"
               id="title"
-              class="title bg-[#0f1115] border border-white/10 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
+              class="title rounded-xl border border-white/10 bg-[#0f1115] px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
               placeholder="Enter task title"
             />
 
@@ -101,23 +167,76 @@
 
             <textarea
               id="description"
-              class="bg-[#0f1115] border border-white/10 rounded-xl px-4 py-3 h-28 resize-none outline-none focus:ring-2 focus:ring-violet-500"
+              class="h-28 resize-none rounded-xl border border-white/10 bg-[#0f1115] px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
               placeholder="Enter task details"
             ></textarea>
 
+            <div class="relative w-fit">
+
+              <div class="group relative">
+
+                <select
+                  class="h-11 min-w-[160px] appearance-none rounded-xl border border-zinc-800 bg-zinc-900/90 px-4 pr-10 text-sm font-medium text-zinc-200 outline-none backdrop-blur-xl transition-all duration-300 hover:border-violet-500/40 focus:border-violet-400/60 focus:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+                >
+                  <option value="Personal" class="bg-zinc-900">
+                    Personal
+                  </option>
+
+                  <option value="Study" class="bg-zinc-900">
+                    Study
+                  </option>
+
+                  <option value="Work" class="bg-zinc-900">
+                    Work
+                  </option>
+
+                  <option value="Fitness" class="bg-zinc-900">
+                    Fitness
+                  </option>
+
+                  <option value="Daily" class="bg-zinc-900">
+                    Daily
+                  </option>
+                </select>
+
+                <div
+                  class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors duration-300 group-focus-within:text-violet-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m19 9-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+
+              </div>
+
+            </div>
+
             <button
               type="submit"
-              class="submit bg-violet-600 hover:bg-violet-700 rounded-xl py-3 font-semibold transition"
+              class="submit rounded-xl bg-violet-600 py-3 font-semibold transition hover:bg-violet-700"
             >
-              Save Task
+              Create Task
             </button>
+
           </form>
+
         </div>
 
         <div
-          class="savedTodo grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-        >
-        </div>
+  class="savedTodo grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
+>
+        ></div>
 
       </div>
 
