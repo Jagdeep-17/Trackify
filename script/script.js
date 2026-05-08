@@ -8,6 +8,10 @@ const searchTodo = document.querySelector(".searchTodo");
 const allTaskBtn = document.querySelector(".allTasks");
 const completedTasksBtn = document.querySelector(".completedTasks");
 const pendingTasksBtn = document.querySelector(".pendingTasks");
+const tagNameDropdown = document.querySelector(".tagName")
+const dailyTasksBtn = document.querySelector(".dailyTag");
+const studyTasksBtn = document.querySelector(".studyTag");
+const personalTasksBtn = document.querySelector(".personalTag");
 
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
@@ -90,13 +94,13 @@ function renderTodos(todos = getTodos()){
 }
 
 
-// YOUR SAME TEMPLATE (unchanged)
+
 function menutemplate(id){
   return `
   
 <div class="relative inline-block group/menu">
 
-  <!-- MENU BUTTON -->
+  
   <button
     class="w-10 h-10 rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:scale-105 active:scale-95"
   >
@@ -105,14 +109,14 @@ function menutemplate(id){
     <span class="w-1 h-1 bg-zinc-200 rounded-full"></span>
   </button>
 
-  <!-- DROPDOWN -->
+  
   <div
     class="absolute right-0 top-12 z-50 w-[220px] rounded-2xl border border-zinc-700 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible scale-95 transition-all duration-200 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:scale-100"
   >
 
     <ul class="flex flex-col gap-1">
 
-      <!-- EDIT -->
+      
       <li>
         <button
           data-edit="${id}"
@@ -122,7 +126,7 @@ function menutemplate(id){
         </button>
       </li>
 
-      <!-- COMPLETE -->
+      
       <li>
         <button
           data-mark-as-completed="${id}"
@@ -134,7 +138,7 @@ function menutemplate(id){
 
       <div class="my-1 border-t border-zinc-700"></div>
 
-      <!-- SETTINGS -->
+      
       <li>
         <button
           data-settings="${id}"
@@ -144,7 +148,7 @@ function menutemplate(id){
         </button>
       </li>
 
-      <!-- DELETE -->
+      
       <li>
         <button
           data-delete="${id}"
@@ -156,7 +160,7 @@ function menutemplate(id){
 
       <div class="my-1 border-t border-zinc-700"></div>
 
-      <!-- TEAM -->
+      
       <li>
         <button
           data-team="${id}"
@@ -258,6 +262,31 @@ pendingTasksBtn.addEventListener("click", function(){
   })
   renderTodos(filteredTodo);
 })
+//Tag filters 
+personalTasksBtn.addEventListener("click", function(){
+let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo=>{
+    return todo.Tag === "Personal";
+  })
+  renderTodos(filteredTodo);
+})
+dailyTasksBtn.addEventListener("click", function(){
+let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo=>{
+    return todo.Tag === "Daily";
+  })
+  renderTodos(filteredTodo);
+})
+studyTasksBtn.addEventListener("click", function(){
+let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo=>{
+    return todo.Tag === "Study";
+  })
+  renderTodos(filteredTodo);
+})
+
+
+
 // search 
 searchTodo.addEventListener("input", function(){
   let allTodos = getTodos();
@@ -284,6 +313,8 @@ submitBtn.addEventListener("click", function (e) {
 
   let titleText = title.value.trim();
   let descriptionText = description.value.trim();
+  let tagvalue = tagNameDropdown.value;
+  
 
   if (titleText === "" || descriptionText === "") {
     alert("Input field is empty");
@@ -299,6 +330,7 @@ if (currentlyEditingId !== null) {
 editingTodo.Title = titleText;
  editingTodo.Description =descriptionText;
  editingTodo.Date =  "Edited at " +new Date().toLocaleString();
+ editingTodo.Tag = tagvalue;
 saveTodos(allTodos)
 renderTodos()
 currentlyEditingId = null;
@@ -307,7 +339,7 @@ currentlyEditingId = null;
   let todo = {
     Title: titleText,
     Description: descriptionText,
-    Tag: "Personal",
+    Tag: tagvalue,
     Date: new Date().toLocaleString(),
     Completed : false,
     Id: Date.now()
