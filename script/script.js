@@ -13,6 +13,9 @@ const dailyTasksBtn = document.querySelector(".dailyTag");
 const studyTasksBtn = document.querySelector(".studyTag");
 const personalTasksBtn = document.querySelector(".personalTag");
 
+
+
+
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
 });
@@ -26,7 +29,18 @@ function getTodos(){
 function saveTodos(todos){
   localStorage.setItem("todos", JSON.stringify(todos));
 }
-
+function getFormattedDate() {
+  return new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: "Asia/Kolkata"
+  })
+    .format(new Date())
+    .split("/")
+    .reverse()
+    .join("-");
+}
 
 // render one todo
 function loadTodos(todo) {
@@ -54,7 +68,7 @@ function loadTodos(todo) {
           <span class="h-2 w-2 rounded-full bg-violet-400"></span>
 
           <small class="text-xs tracking-wide text-zinc-500">
-            ${todo.Date}
+            ${todo.CreatedAt_Display}
           </small>
 
           <span
@@ -75,7 +89,7 @@ function loadTodos(todo) {
   `;
 
   // COMPLETED STATE
-  if (todo.Completed == true) {
+  if (todo.CompletedAt !== null) {
     todoCard.classList.add("grayscale", "opacity-60");
     
   }
@@ -236,7 +250,7 @@ let todos = getTodos();
 let markAsCompletedTodo  = todos.find(function(todo){
 return todo.Id === id;
 })
-markAsCompletedTodo.Completed = true;
+markAsCompletedTodo.CompletedAt = getFormattedDate();
 saveTodos(todos);
 renderTodos();
 
@@ -249,7 +263,7 @@ renderTodos()
 completedTasksBtn.addEventListener("click", function(){
   let allTodos = getTodos();
   let filteredTodo = allTodos.filter(todo =>{
-   return todo.Completed === true;
+   return todo.CompletedAt !== null;
     
   })
   renderTodos(filteredTodo);
@@ -258,7 +272,7 @@ completedTasksBtn.addEventListener("click", function(){
 pendingTasksBtn.addEventListener("click", function(){
   let alltodos = getTodos();
   let filteredTodo = alltodos.filter(todo=>{
-    return todo.Completed === false;
+    return todo.CompletedAt === null;
   })
   renderTodos(filteredTodo);
 })
@@ -314,7 +328,7 @@ submitBtn.addEventListener("click", function (e) {
   let titleText = title.value.trim();
   let descriptionText = description.value.trim();
   let tagvalue = tagNameDropdown.value;
-  
+  let createdAtValue = getFormattedDate();
 
   if (titleText === "" || descriptionText === "") {
     alert("Input field is empty");
@@ -329,7 +343,8 @@ if (currentlyEditingId !== null) {
 
 editingTodo.Title = titleText;
  editingTodo.Description =descriptionText;
- editingTodo.Date =  "Edited at " +new Date().toLocaleString();
+ editingTodo.CreatedAt_Display =  "Edited at " +new Date().toLocaleString();
+ editingTodo.UpdatedAt = getFormattedDate();
  editingTodo.Tag = tagvalue;
 saveTodos(allTodos)
 renderTodos()
@@ -340,8 +355,10 @@ currentlyEditingId = null;
     Title: titleText,
     Description: descriptionText,
     Tag: tagvalue,
-    Date: new Date().toLocaleString(),
-    Completed : false,
+    CreatedAt_Display: new Date().toLocaleString(),
+    CompletedAt : null,
+    CreatedAt:createdAtValue,
+    UpdatedAt: null,
     Id: Date.now()
   };
 
