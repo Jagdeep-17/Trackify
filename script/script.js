@@ -344,7 +344,13 @@ searchTodo.addEventListener("input", function(){
   renderTodos(filteredTodo);
 })
 
-
+function claculateStreak() {
+  analyticsData = analytics();
+  activeDates = [];
+  analyticsData.forEach(date => {
+    
+  });
+}
 
 
 
