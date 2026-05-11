@@ -29,6 +29,29 @@ function getTodos(){
 function saveTodos(todos){
   localStorage.setItem("todos", JSON.stringify(todos));
 }
+// analytics engine 
+function analytics() {
+  let todos = getTodos();
+  const todoAnalytics = todos.reduce((accumulate, todo)=>{
+    //creation
+    const createdDate = todo.CreatedAt;
+    if(!accumulate[createdDate]){
+      accumulate[createdDate] = {created: 0,completed: 0};
+    }
+    accumulate[createdDate].created++;
+
+
+// completion
+if (todo.CompletedAt!==null) {
+  const completedDate = todo.CompletedAt;
+  if (!accumulate[completedDate]) {
+    accumulate[completedDate] = {created:0, completed: 0};
+  }accumulate[completedDate].completed++
+}
+    return accumulate;
+  }, {});
+  return todoAnalytics;
+}
 function getFormattedDate() {
   return new Intl.DateTimeFormat("en-IN", {
     year: "numeric",
@@ -196,6 +219,7 @@ function menutemplate(id){
 // load on start
 window.addEventListener("DOMContentLoaded", function () {
   renderTodos();
+  analytics();
 });
 
 
@@ -300,7 +324,6 @@ let alltodos = getTodos();
 })
 
 
-
 // search 
 searchTodo.addEventListener("input", function(){
   let allTodos = getTodos();
@@ -320,6 +343,16 @@ searchTodo.addEventListener("input", function(){
     })
   renderTodos(filteredTodo);
 })
+
+
+
+
+
+
+
+
+
+
 
 // create todo
 submitBtn.addEventListener("click", function (e) {
