@@ -1,33 +1,38 @@
 # Trackify
 
-A modern productivity-focused task management app built for tracking daily work, routines, and progress.
+Trackify is a modern productivity-focused task management application designed to help users manage daily work, routines, and personal goals efficiently.
 
-Built as a mini project for JavaScript practice and frontend architecture learning.
+The project was built as a frontend-focused JavaScript learning project to strengthen application architecture, state-driven UI rendering, and logic-building skills.
 
 ## Features
 
 * Create, edit, and delete tasks
 * Mark tasks as completed
-* Real-time search functionality
-* Task filtering system
-* LocalStorage data persistence
-* Modern responsive UI
+* Real-time task search
+* Task filtering by status and category
+* Contribution heatmap visualization
+* Daily streak tracking system
+* LocalStorage-based data persistence
+* Responsive and modern user interface
 
 ## Tech Stack
 
-* HTML
+* HTML5
 * Tailwind CSS
 * Vanilla JavaScript
 
-## Goal
+## Core Concepts Practiced
 
-Trackify was built to strengthen:
+Trackify was built to strengthen understanding of:
 
-* JavaScript logic building
 * DOM manipulation
-* State-driven UI thinking
-* Frontend architecture concepts
+* Dynamic UI rendering
+* State-driven frontend architecture
+* JavaScript logic building
+* Analytics-based UI systems
+* LocalStorage data management
+* Event-driven programming
 
-## Status
+## Project Status
 
-Currently under active development.
+Trackify is currently under active development, with future plans for backend integration, recurring task systems, due-date management, and notification support.
