@@ -92,6 +92,8 @@ function renderHeatmap() {
     document.querySelector(".heatmapWrapper");
   heatmapWrapper.innerHTML = "";
 
+  const analyticsData = analytics();
+
   const dates = [];
 for (let i = 0; i < 30; i++) {
   const currentdate = new Date();
@@ -101,17 +103,56 @@ for (let i = 0; i < 30; i++) {
   dates.push(formattedDate);
 }
 dates.reverse();
-console.log(dates);
 
-dates.forEach(element => {
+dates.forEach(date => {
   const heatCell =
       document.createElement("div");
+ let completedCount = 0;
+ let createdCount =0;
 
+if (analyticsData[date] ) {
+ completedCount = analyticsData[date].completed;
+ createdCount = analyticsData[date].created;
+} 
+let intensityClass = "bg-zinc-800";
+ if(completedCount === 1){
+intensityClass = "bg-violet-900"
+} 
+else if(completedCount >=2 && completedCount<=3){
+intensityClass = "bg-violet-700";
+} else if(completedCount > 3){
+intensityClass = "bg-violet-500";
+}
+const readableDate =
+  new Date(date).toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    }
+  );
+const tooltip =
+`Date: ${readableDate}
+Created: ${createdCount}
+Completed: ${completedCount}`;
+heatCell.title = tooltip;
     heatCell.className =
-      "h-4 w-4 rounded-[4px] bg-violet-500 shrink-0";
+      `h-4 w-4 rounded-[4px]  shrink-0 ${intensityClass}`;
 
     heatmapWrapper.appendChild(heatCell);
 });
+  
+
+}
+
+
+function updateStreakUi(){
+  const streak = claculateStreak();
+   const streakCount = document.querySelector(".streakCount");
+   streakCount.textContent = `🔥 ${streak}`;
+  
+  
   
 
 }
@@ -288,6 +329,7 @@ window.addEventListener("DOMContentLoaded", function () {
   renderHeatmap();
   analytics();
   claculateStreak();
+  updateStreakUi();
 });
 
 
