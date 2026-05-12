@@ -15,7 +15,7 @@
 
   <div class="flex min-h-screen max-w-full overflow-x-hidden">
 
-    <aside class="flex w-[280px] shrink-0 flex-col gap-6 border-r border-white/10 bg-[#111318] px-5 py-6">
+    <aside class="flex w-[280px] shrink-0 flex-col gap-4 border-r border-white/10 bg-[#111318] px-5 py-6">
 
       <div class="flex items-center gap-3">
         <div class="flex h-14 w-20 items-center justify-center rounded-xl text-xl font-bold">
@@ -35,35 +35,69 @@
 
       <div class="space-y-2">
 
-        <button class="allTasks w-full rounded-xl bg-blue-700/80 px-4 py-3 text-left font-medium">
+        <button class="allTasks w-full rounded-xl bg-blue-700/80 px-4 py-2 text-left font-medium">
           All Tasks
         </button>
 
-        <button class="completedTasks w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
+        <button class="completedTasks w-full rounded-xl px-4 py-2 text-left transition hover:bg-white/5">
           Completed
         </button>
 
-        <button class="pendingTasks w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
+        <button class="pendingTasks w-full rounded-xl px-4 py-2 text-left transition hover:bg-white/5">
           Pending
         </button>
 
       </div>
+      <div class="heatmap h-28 rounded-xl border border-zinc-800 bg-zinc-900/70 p-2">
 
+  <div class="mb-2 flex items-center justify-between">
+
+    <h6 class="text-[11px] font-semibold uppercase tracking-wide text-zinc-400">
+      Task Progress
+    </h6>
+
+    <div
+      class="rounded-md border border-violet-500/20 bg-violet-500/10 px-2 py-[1px] text-[10px] text-violet-300"
+    >
+      🔥 0
+    </div>
+
+  </div>
+
+  <div class="heatmapWrapper flex flex-wrap gap-1">
+
+
+</div>
+
+      </div>
+<div class="mt-2 flex items-center gap-1 text-[10px] text-zinc-500">
+
+  <span>Less</span>
+
+  <div class="h-3 w-3 rounded-[3px] bg-zinc-800"></div>
+  <div class="h-3 w-3 rounded-[3px] bg-violet-900"></div>
+  <div class="h-3 w-3 rounded-[3px] bg-violet-700"></div>
+  <div class="h-3 w-3 rounded-[3px] bg-violet-500"></div>
+  <div class="h-3 w-3 rounded-[3px] bg-violet-400"></div>
+
+  <span>More</span>
+
+</div>
       <div class="space-y-3 border-t border-white/10 pt-4">
 
         <h2 class="text-sm uppercase tracking-wider text-gray-400">
           Quick Lists
         </h2>
 
-        <button class="dailyTag w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
+        <button class="dailyTag w-full rounded-xl px-4 py-1 text-left transition hover:bg-white/5">
           Daily Work
         </button>
 
-        <button class="studyTag w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
+        <button class="studyTag w-full rounded-xl px-4 py-1 text-left transition hover:bg-white/5">
           Study Goals
         </button>
 
-        <button class="personalTag w-full rounded-xl px-4 py-3 text-left transition hover:bg-white/5">
+        <button class="personalTag w-full rounded-xl px-4 py-1 text-left transition hover:bg-white/5">
           Personal Tasks
         </button>
 
