@@ -52,6 +52,43 @@ if (todo.CompletedAt!==null) {
   }, {});
   return todoAnalytics;
 }
+
+function claculateStreak() {
+  const analyticsData = analytics();
+  const entries = Object.entries(analyticsData)
+  const activeDates = [];
+entries.forEach(([date, data])=>{
+  if( data.completed > 0){
+activeDates.push(date);
+  }
+});
+activeDates.sort()
+if(activeDates.length ===0){
+  return null;
+}
+let streak = 1;
+let len = activeDates.length;
+for (let i = 1; i < len; i++) {
+  const previousDate = activeDates[i-1];
+  const currentDate = activeDates[i];
+  const current = new Date(currentDate);
+  const previous = new Date(previousDate);
+
+  const difference = current-previous;
+const dayDifference = difference /(1000*60*60*24);
+if (dayDifference === 1) {
+  streak++;
+}else {
+  streak = 1;
+}
+}
+return streak;
+}
+
+
+
+
+
 function getFormattedDate() {
   return new Intl.DateTimeFormat("en-IN", {
     year: "numeric",
@@ -220,6 +257,7 @@ function menutemplate(id){
 window.addEventListener("DOMContentLoaded", function () {
   renderTodos();
   analytics();
+  claculateStreak();
 });
 
 
@@ -239,7 +277,7 @@ savedTodoBox.addEventListener("click", function(e){
  let todos = getTodos();
  todos = todos.filter(todo => todo.Id !==id)
   saveTodos(todos);
-  renderTodos() ; // brings back to the ui 
+  renderTodos() ; 
 });
 
 
@@ -343,18 +381,6 @@ searchTodo.addEventListener("input", function(){
     })
   renderTodos(filteredTodo);
 })
-
-function claculateStreak() {
-  analyticsData = analytics();
-  activeDates = [];
-  analyticsData.forEach(date => {
-    
-  });
-}
-
-
-
-
 
 
 
