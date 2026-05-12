@@ -23,32 +23,32 @@ createBtn.addEventListener("click", function () {
 
 
 // helpers for localStorage
-function getTodos(){
+function getTodos() {
   return JSON.parse(localStorage.getItem("todos")) || [];
 }
 
-function saveTodos(todos){
+function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 // analytics engine 
 function analytics() {
   let todos = getTodos();
-  const todoAnalytics = todos.reduce((accumulate, todo)=>{
+  const todoAnalytics = todos.reduce((accumulate, todo) => {
     //creation
     const createdDate = todo.CreatedAt;
-    if(!accumulate[createdDate]){
-      accumulate[createdDate] = {created: 0,completed: 0};
+    if (!accumulate[createdDate]) {
+      accumulate[createdDate] = { created: 0, completed: 0 };
     }
     accumulate[createdDate].created++;
 
 
-// completion
-if (todo.CompletedAt!==null) {
-  const completedDate = todo.CompletedAt;
-  if (!accumulate[completedDate]) {
-    accumulate[completedDate] = {created:0, completed: 0};
-  }accumulate[completedDate].completed++
-}
+    // completion
+    if (todo.CompletedAt !== null) {
+      const completedDate = todo.CompletedAt;
+      if (!accumulate[completedDate]) {
+        accumulate[completedDate] = { created: 0, completed: 0 };
+      } accumulate[completedDate].completed++
+    }
     return accumulate;
   }, {});
   return todoAnalytics;
@@ -58,32 +58,32 @@ function claculateStreak() {
   const analyticsData = analytics();
   const entries = Object.entries(analyticsData)
   const activeDates = [];
-entries.forEach(([date, data])=>{
-  if( data.completed > 0){
-activeDates.push(date);
+  entries.forEach(([date, data]) => {
+    if (data.completed > 0) {
+      activeDates.push(date);
+    }
+  });
+  activeDates.sort()
+  if (activeDates.length === 0) {
+    return null;
   }
-});
-activeDates.sort()
-if(activeDates.length ===0){
-  return null;
-}
-let streak = 1;
-let len = activeDates.length;
-for (let i = 1; i < len; i++) {
-  const previousDate = activeDates[i-1];
-  const currentDate = activeDates[i];
-  const current = new Date(currentDate);
-  const previous = new Date(previousDate);
+  let streak = 1;
+  let len = activeDates.length;
+  for (let i = 1; i < len; i++) {
+    const previousDate = activeDates[i - 1];
+    const currentDate = activeDates[i];
+    const current = new Date(currentDate);
+    const previous = new Date(previousDate);
 
-  const difference = current-previous;
-const dayDifference = difference /(1000*60*60*24);
-if (dayDifference === 1) {
-  streak++;
-}else {
-  streak = 1;
-}
-}
-return streak;
+    const difference = current - previous;
+    const dayDifference = difference / (1000 * 60 * 60 * 24);
+    if (dayDifference === 1) {
+      streak++;
+    } else {
+      streak = 1;
+    }
+  }
+  return streak;
 }
 
 
@@ -95,65 +95,65 @@ function renderHeatmap() {
   const analyticsData = analytics();
 
   const dates = [];
-for (let i = 0; i < 30; i++) {
-  const currentdate = new Date();
-  currentdate.setDate(currentdate.getDate()-i);
-  const formattedDate = currentdate
-  .toLocaleDateString("en-CA");
-  dates.push(formattedDate);
-}
-dates.reverse();
+  for (let i = 0; i < 30; i++) {
+    const currentdate = new Date();
+    currentdate.setDate(currentdate.getDate() - i);
+    const formattedDate = currentdate
+      .toLocaleDateString("en-CA");
+    dates.push(formattedDate);
+  }
+  dates.reverse();
 
-dates.forEach(date => {
-  const heatCell =
+  dates.forEach(date => {
+    const heatCell =
       document.createElement("div");
- let completedCount = 0;
- let createdCount =0;
+    let completedCount = 0;
+    let createdCount = 0;
 
-if (analyticsData[date] ) {
- completedCount = analyticsData[date].completed;
- createdCount = analyticsData[date].created;
-} 
-let intensityClass = "bg-zinc-800";
- if(completedCount === 1){
-intensityClass = "bg-violet-900"
-} 
-else if(completedCount >=2 && completedCount<=3){
-intensityClass = "bg-violet-700";
-} else if(completedCount > 3){
-intensityClass = "bg-violet-500";
-}
-const readableDate =
-  new Date(date).toLocaleDateString(
-    "en-US",
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric"
+    if (analyticsData[date]) {
+      completedCount = analyticsData[date].completed;
+      createdCount = analyticsData[date].created;
     }
-  );
-const tooltip =
-`Date: ${readableDate}
+    let intensityClass = "bg-zinc-800";
+    if (completedCount === 1) {
+      intensityClass = "bg-violet-900"
+    }
+    else if (completedCount >= 2 && completedCount <= 3) {
+      intensityClass = "bg-violet-700";
+    } else if (completedCount > 3) {
+      intensityClass = "bg-violet-500";
+    }
+    const readableDate =
+      new Date(date).toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
+    const tooltip =
+      `Date: ${readableDate}
 Created: ${createdCount}
 Completed: ${completedCount}`;
-heatCell.title = tooltip;
+    heatCell.title = tooltip;
     heatCell.className =
       `h-4 w-4 rounded-[4px]  shrink-0 ${intensityClass}`;
 
     heatmapWrapper.appendChild(heatCell);
-});
-  
+  });
+
 
 }
 
 
-function updateStreakUi(){
+function updateStreakUi() {
   const streak = claculateStreak();
-   const streakCount = document.querySelector(".streakCount");
-   streakCount.textContent = `🔥 ${streak}`;
-  
-  
-  
+  const streakCount = document.querySelector(".streakCount");
+  streakCount.textContent = `🔥 ${streak}`;
+
+
+
 
 }
 
@@ -186,11 +186,11 @@ function loadTodos(todo) {
       
       <div class="flex flex-col gap-3 flex-1 min-w-0">
         
-        <h3 class="text-lg font-semibold text-zinc-100 break-words leading-snug">
+        <h3 class="text-lg font-semibold text-zinc-100 wrap-break-word leading-snug">
           ${todo.Title}
         </h3>
 
-        <p class="text-sm text-zinc-400 break-words leading-relaxed">
+        <p class="text-sm text-zinc-400 wrap-break-word leading-relaxed">
           ${todo.Description}
         </p>
 
@@ -215,13 +215,13 @@ function loadTodos(todo) {
     </div>
 
     <!-- HOVER GLOW -->
-    <div class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/5 via-transparent to-fuchsia-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+    <div class="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-violet-500/5 via-transparent to-fuchsia-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
   `;
 
   // COMPLETED STATE
   if (todo.CompletedAt !== null) {
     todoCard.classList.add("grayscale", "opacity-60");
-    
+
   }
 
   savedTodoBox.appendChild(todoCard);
@@ -229,7 +229,7 @@ function loadTodos(todo) {
 
 
 // render all todos
-function renderTodos(todos = getTodos()){
+function renderTodos(todos = getTodos()) {
   savedTodoBox.innerHTML = "";
 
   todos.forEach(todo => {
@@ -239,7 +239,7 @@ function renderTodos(todos = getTodos()){
 
 
 
-function menutemplate(id){
+function menutemplate(id) {
   return `
   
 <div class="relative inline-block group/menu ">
@@ -255,7 +255,7 @@ function menutemplate(id){
 
   
   <div
-    class="absolute right-0 top-12 z-50 w-[220px] rounded-2xl border border-zinc-700 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible scale-95 transition-all duration-200 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:scale-100"
+    class="absolute right-0 top-12 z-50 w-55 rounded-2xl border border-zinc-700 bg-linear-to-br from-zinc-900 to-zinc-800 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible scale-95 transition-all duration-200 group-hover/menu:opacity-100 group-hover/menu:visible group-hover/menu:scale-100"
   >
 
     <ul class="flex flex-col gap-1">
@@ -341,93 +341,93 @@ function clearFields() {
 
 
 // delete logic
-savedTodoBox.addEventListener("click", function(e){
+savedTodoBox.addEventListener("click", function (e) {
   const deleteBtn = e.target.closest("[data-delete]");
-  if(!deleteBtn) return;
+  if (!deleteBtn) return;
 
   const id = Number(deleteBtn.dataset.delete);
- let todos = getTodos();
- todos = todos.filter(todo => todo.Id !==id)
+  let todos = getTodos();
+  todos = todos.filter(todo => todo.Id !== id)
   saveTodos(todos);
-  renderTodos() ; 
+  renderTodos();
 });
 
 
 
 // editing logic 
 let currentlyEditingId = null;
-savedTodoBox.addEventListener("click", function(e){
-const editBtn = e.target.closest("[data-edit]")
-if(!editBtn) return;
+savedTodoBox.addEventListener("click", function (e) {
+  const editBtn = e.target.closest("[data-edit]")
+  if (!editBtn) return;
 
-const id = Number(editBtn.dataset.edit)
-let todos = getTodos();
- let editingTodo = todos.find(function (todo) {
-  return todo.Id === id;
-})
- title.value = editingTodo.Title
-description.value = editingTodo.Description
+  const id = Number(editBtn.dataset.edit)
+  let todos = getTodos();
+  let editingTodo = todos.find(function (todo) {
+    return todo.Id === id;
+  })
+  title.value = editingTodo.Title
+  description.value = editingTodo.Description
 
-currentlyEditingId = editingTodo.Id
+  currentlyEditingId = editingTodo.Id
   todoForm.classList.remove("hidden")
 
 
 })
 
 // mark as completed logic 
-savedTodoBox.addEventListener("click", function(e){
-const markAsCompletedBtn = e.target.closest("[data-mark-as-completed]");
-if(!markAsCompletedBtn)return;
-const id = Number(markAsCompletedBtn.dataset.markAsCompleted);
-let todos = getTodos();
+savedTodoBox.addEventListener("click", function (e) {
+  const markAsCompletedBtn = e.target.closest("[data-mark-as-completed]");
+  if (!markAsCompletedBtn) return;
+  const id = Number(markAsCompletedBtn.dataset.markAsCompleted);
+  let todos = getTodos();
 
-let markAsCompletedTodo  = todos.find(function(todo){
-return todo.Id === id;
-})
-markAsCompletedTodo.CompletedAt = getFormattedDate();
-saveTodos(todos);
-renderTodos();
+  let markAsCompletedTodo = todos.find(function (todo) {
+    return todo.Id === id;
+  })
+  markAsCompletedTodo.CompletedAt = getFormattedDate();
+  saveTodos(todos);
+  renderTodos();
 
 })
 //allTasks
-allTaskBtn.addEventListener("click", function(){
-renderTodos()
+allTaskBtn.addEventListener("click", function () {
+  renderTodos()
 })
 //completedTasks 
-completedTasksBtn.addEventListener("click", function(){
+completedTasksBtn.addEventListener("click", function () {
   let allTodos = getTodos();
-  let filteredTodo = allTodos.filter(todo =>{
-   return todo.CompletedAt !== null;
-    
+  let filteredTodo = allTodos.filter(todo => {
+    return todo.CompletedAt !== null;
+
   })
   renderTodos(filteredTodo);
 })
 //pendingTasks 
-pendingTasksBtn.addEventListener("click", function(){
+pendingTasksBtn.addEventListener("click", function () {
   let alltodos = getTodos();
-  let filteredTodo = alltodos.filter(todo=>{
+  let filteredTodo = alltodos.filter(todo => {
     return todo.CompletedAt === null;
   })
   renderTodos(filteredTodo);
 })
 //Tag filters 
-personalTasksBtn.addEventListener("click", function(){
-let alltodos = getTodos();
-  let filteredTodo = alltodos.filter(todo=>{
+personalTasksBtn.addEventListener("click", function () {
+  let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo => {
     return todo.Tag === "Personal";
   })
   renderTodos(filteredTodo);
 })
-dailyTasksBtn.addEventListener("click", function(){
-let alltodos = getTodos();
-  let filteredTodo = alltodos.filter(todo=>{
+dailyTasksBtn.addEventListener("click", function () {
+  let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo => {
     return todo.Tag === "Daily";
   })
   renderTodos(filteredTodo);
 })
-studyTasksBtn.addEventListener("click", function(){
-let alltodos = getTodos();
-  let filteredTodo = alltodos.filter(todo=>{
+studyTasksBtn.addEventListener("click", function () {
+  let alltodos = getTodos();
+  let filteredTodo = alltodos.filter(todo => {
     return todo.Tag === "Study";
   })
   renderTodos(filteredTodo);
@@ -435,22 +435,22 @@ let alltodos = getTodos();
 
 
 // search 
-searchTodo.addEventListener("input", function(){
+searchTodo.addEventListener("input", function () {
   let allTodos = getTodos();
-   let enteredText = searchTodo.value.toLowerCase();
-  
-  if (enteredText === ""){
- renderTodos(allTodos);
- return;
-  }
-    let filteredTodo = allTodos.filter(todo =>{
-      let todoTitle = todo.Title.toLowerCase();
-      let todoDescription = todo.Description.toLowerCase();
+  let enteredText = searchTodo.value.toLowerCase();
 
-      return(
-        todoTitle.includes(enteredText) || todoDescription.includes(enteredText)
-      );
-    })
+  if (enteredText === "") {
+    renderTodos(allTodos);
+    return;
+  }
+  let filteredTodo = allTodos.filter(todo => {
+    let todoTitle = todo.Title.toLowerCase();
+    let todoDescription = todo.Description.toLowerCase();
+
+    return (
+      todoTitle.includes(enteredText) || todoDescription.includes(enteredText)
+    );
+  })
   renderTodos(filteredTodo);
 })
 
@@ -472,42 +472,42 @@ submitBtn.addEventListener("click", function (e) {
     return;
   }
 
-if (currentlyEditingId !== null) {
-  let allTodos = getTodos()
-  let editingTodo = allTodos.find(function (todo) {
-  return todo.Id === currentlyEditingId;
-})
+  if (currentlyEditingId !== null) {
+    let allTodos = getTodos()
+    let editingTodo = allTodos.find(function (todo) {
+      return todo.Id === currentlyEditingId;
+    })
 
-editingTodo.Title = titleText;
- editingTodo.Description =descriptionText;
- editingTodo.CreatedAt_Display =  "Edited at " +new Date().toLocaleString();
- editingTodo.UpdatedAt = getFormattedDate();
- editingTodo.Tag = tagvalue;
-saveTodos(allTodos)
-renderTodos()
-currentlyEditingId = null;
-}
- else {
-  let todo = {
-    Title: titleText,
-    Description: descriptionText,
-    Tag: tagvalue,
-    CreatedAt_Display: new Date().toLocaleString(),
-    CompletedAt : null,
-    CreatedAt:createdAtValue,
-    UpdatedAt: null,
-    Id: Date.now()
-  };
+    editingTodo.Title = titleText;
+    editingTodo.Description = descriptionText;
+    editingTodo.CreatedAt_Display = "Edited at " + new Date().toLocaleString();
+    editingTodo.UpdatedAt = getFormattedDate();
+    editingTodo.Tag = tagvalue;
+    saveTodos(allTodos)
+    renderTodos()
+    currentlyEditingId = null;
+  }
+  else {
+    let todo = {
+      Title: titleText,
+      Description: descriptionText,
+      Tag: tagvalue,
+      CreatedAt_Display: new Date().toLocaleString(),
+      CompletedAt: null,
+      CreatedAt: createdAtValue,
+      UpdatedAt: null,
+      Id: Date.now()
+    };
 
-  let todos = getTodos();
-  todos.push(todo);
+    let todos = getTodos();
+    todos.push(todo);
 
-  saveTodos(todos);
+    saveTodos(todos);
 
-  renderTodos();
-}
+    renderTodos();
+  }
 
-  
+
   clearFields();
   todoForm.classList.add("hidden");
 });
