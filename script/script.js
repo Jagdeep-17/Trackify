@@ -1,3 +1,4 @@
+
 const createBtn = document.querySelector(".create-todo");
 const todoForm = document.querySelector(".todo");
 const submitBtn = document.querySelector(".submit");
@@ -86,6 +87,34 @@ return streak;
 }
 
 
+function renderHeatmap() {
+  const heatmapWrapper =
+    document.querySelector(".heatmapWrapper");
+  heatmapWrapper.innerHTML = "";
+
+  const dates = [];
+for (let i = 0; i < 30; i++) {
+  const currentdate = new Date();
+  currentdate.setDate(currentdate.getDate()-i);
+  const formattedDate = currentdate
+  .toLocaleDateString("en-CA");
+  dates.push(formattedDate);
+}
+dates.reverse();
+console.log(dates);
+
+dates.forEach(element => {
+  const heatCell =
+      document.createElement("div");
+
+    heatCell.className =
+      "h-4 w-4 rounded-[4px] bg-violet-500 shrink-0";
+
+    heatmapWrapper.appendChild(heatCell);
+});
+  
+
+}
 
 
 
@@ -256,6 +285,7 @@ function menutemplate(id){
 // load on start
 window.addEventListener("DOMContentLoaded", function () {
   renderTodos();
+  renderHeatmap();
   analytics();
   claculateStreak();
 });
