@@ -13,14 +13,21 @@ const tagNameDropdown = document.querySelector(".tagName")
 const dailyTasksBtn = document.querySelector(".dailyTag");
 const studyTasksBtn = document.querySelector(".studyTag");
 const personalTasksBtn = document.querySelector(".personalTag");
-
-
-
+const tickiBtn = document.querySelector(".ticki");
+const tickiDisplay = document.querySelector(".tickiDisplay");
 
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
 });
-
+tickiBtn.addEventListener("click", function(){
+  if (tickiDisplay.classList.contains("flex")) {
+    tickiDisplay.classList.remove("flex");
+    tickiDisplay.classList.add("hidden");
+  }else{
+tickiDisplay.classList.remove("hidden");
+tickiDisplay.classList.add("flex");
+  }
+});
 
 // helpers for localStorage
 function getTodos() {
