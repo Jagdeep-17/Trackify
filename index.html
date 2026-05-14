@@ -260,25 +260,24 @@
 
 
         <div
-          class="group  tickiDisplay  hidden fixed bottom-6 right-28  h-72 w-72 items-center justify-center overflow-hidden rounded-[2rem] border border-zinc-800/80 bg-zinc-900/90 shadow-[0_0_40px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-cyan-500/40 ">
-          <!-- Glow -->
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,0.18),transparent_55%)]"></div>
+          class="group tickiDisplay hidden fixed bottom-6 right-28 z-50 h-102 w-88 overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.35),rgba(9,9,11,0.18))] shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/30 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,0.12),transparent_55%)]"></div>
 
-          <!-- Side Accent -->
           <div
-            class="absolute right-[-6px] top-24 h-14 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.9)]">
+            class="absolute right-[-6px] top-24 h-14 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.7)]">
           </div>
 
-          <!-- Inner Card -->
           <div
-            class="relative flex h-[92%] w-[92%] flex-col items-center justify-between rounded-[1.7rem] border border-zinc-800 bg-zinc-950/95 p-5 shadow-inner shadow-black/40">
-            <!-- Top Status -->
-            <div class="flex w-full items-center justify-between">
+            class="relative flex h-full w-full flex-col rounded-[1.7rem] border border-zinc-800 bg-zinc-950/95 p-5 shadow-inner shadow-black/40">
+            <div class="flex items-center justify-between">
               <div>
-                <p class="text-xs font-medium uppercase tracking-[0.25em] text-cyan-400">
-                  Wellness
+                <p class="text-xs font-medium uppercase tracking-[0.25em] text-violet-400">
+                  Tricki
                 </p>
-                <span class="text-xs text-zinc-500">Wed, Sep 19</span>
+
+                <span class="text-xs text-zinc-500 tickiTime">
+                  
+                </span>
               </div>
 
               <div
@@ -287,67 +286,172 @@
               </div>
             </div>
 
-            <!-- Clock -->
-            <div class="relative flex flex-col items-center">
-              <!-- Ambient Glow -->
-              <div class="absolute top-4 h-20 w-20 rounded-full bg-cyan-500/20 blur-3xl"></div>
+            <div class="mt-6 flex flex-col items-center">
 
-              <span class="relative z-10 text-6xl font-black tracking-tight text-zinc-100">
-                12<span class="mx-1 text-cyan-400">:</span>58
-              </span>
+              <div class="relative flex items-center justify-center">
 
-              <p class="mt-2 text-sm text-zinc-500">
-                Focus session in progress
-              </p>
+
+
+
+
+                <div class="absolute h-24 w-24 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+                <div class="relative z-10 flex flex-col items-center">
+
+<span class="mt-2 text-6xl font-black tracking-[-0.08em] text-zinc-100">
+                  <span class="activeHr">
+                    </span><span class="text-cyan-400">:</span><span class="activeMin">
+                  </span>
+</span>
+                  <p class="mt-2 text-sm text-zinc-500">
+                    Stay locked in
+                  </p>
+                </div>
+
+              </div>
+
             </div>
 
-            <!-- Stats -->
             <div
-              class="flex w-full items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/80 px-4 py-3">
-              <!-- Score -->
-              <div class="flex flex-col">
-                <span class="text-[10px] uppercase tracking-wider text-zinc-500">
-                  Score
+              class="mt-10 relative flex items-center justify-between rounded-[2rem] border border-zinc-800/80 bg-[linear-gradient(180deg,rgba(24,24,32,0.95),rgba(18,18,26,0.92))] px-5 py-4 shadow-[0_15px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+              <div
+                class="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08),transparent_65%)]">
+              </div>
+
+              <button
+                class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                  stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+              </button>
+
+              <div class="relative z-10 flex flex-col items-center gap-2">
+                <span class="text-[11px] uppercase tracking-[0.4em] text-zinc-500">
+                  Current Mode
                 </span>
-                <span class="text-lg font-bold text-zinc-100">89</span>
+
+                <span class="mt-1 text-2xl font-bold text-zinc-100">
+                  Focus
+                </span>
               </div>
 
-              <!-- Icons -->
-              <div class="flex items-center gap-3">
-                <!-- Heart -->
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-5 w-5 fill-current">
-                    <path fill-rule="evenodd"
-                      d="M23,27.6a15.8,15.8,0,0,1,22.4,0L50,32.2l4.6-4.6A15.8,15.8,0,0,1,77,50L50,77,23,50A15.8,15.8,0,0,1,23,27.6Z" />
-                  </svg>
-                </div>
-
-                <!-- Activity -->
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-5 w-5 fill-current">
-                    <path
-                      d="M80.2,40.7l-1.1-2-.2-.3.3-.3c2.2-14.7-21.3-25.6-20.7-21S57,38.1,45.4,31.8c-9.3-5.1-12.9,12.1-22.8,33.7C16.2,79.4,20.8,82.3,27,81l.3.4L29,83.3a1.4,1.4,0,0,0,1.8.5l.9-.3a1.6,1.6,0,0,0,1.1-1.9l-.5-2.5a38.2,38.2,0,0,0,4.5-2.7L38.6,78a1.8,1.8,0,0,0,2.4-.1l1.2-1.1a1.9,1.9,0,0,0,.4-1.9l-1-2.5L45.5,69l1.7,1.6a1.8,1.8,0,0,0,2.4-.1l.9-1a1.7,1.7,0,0,0,.4-1.8L50,65c5.6-5,11.9-10.9,17.3-15.8l.4.2,1.9,1.1a1.6,1.6,0,0,0,2.1-.2l.8-.8a1.6,1.6,0,0,0,.3-2.1l-1.3-2.1,3.2-3.1,2.2,1.5a1.8,1.8,0,0,0,2.2-.1l.8-.8A1.7,1.7,0,0,0,80.2,40.7Z" />
-                  </svg>
-                </div>
-
-                <!-- Fire -->
-                <div
-                  class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10 text-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.2)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-5 w-5 fill-current">
-                    <path fill-rule="evenodd"
-                      d="M59.5,20.5a3.9,3.9,0,0,0-2.5-2,4.3,4.3,0,0,0-3.3.5,11.9,11.9,0,0,0-3.2,3.5,26,26,0,0,0-2.3,4.4,76.2,76.2,0,0,0-3.3,10.8,120.4,120.4,0,0,0-2.4,14.2,11.4,11.4,0,0,1-3.8-4.2c-1.3-2.7-1.5-6.1-1.5-10.5a4,4,0,0,0-2.5-3.7,3.8,3.8,0,0,0-4.3.9,27.7,27.7,0,1,0,39.2,0,62.4,62.4,0,0,1-5.3-5.8A42.9,42.9,0,0,1,59.5,20.5ZM58.4,70.3a11.9,11.9,0,0,1-20.3-8.4s3.5,2,9.9,2c0-4,2-15.9,5-17.9a21.7,21.7,0,0,0,5.4,7.5,11.8,11.8,0,0,1,3.5,8.4A12,12,0,0,1,58.4,70.3Z" />
-                  </svg>
-                </div>
-              </div>
+              <button
+                class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                  stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
             </div>
 
-            <!-- Footer -->
-            <div class="flex items-center gap-2 text-sm font-medium text-zinc-500">
-              <div class="h-2 w-2 rounded-full bg-cyan-400"></div>
-              Trackify Focus Widget
+            <div
+              class="mt-6 flex items-center justify-between  ">
+              <div
+  class="flex items-center justify-between bg-gray-950 bg-opacity-95 backdrop-blur-md rounded-full px-6 py-3 shadow-lg max-w-md mx-auto transition-all duration-300 hover:shadow-xl hover:bg-opacity-100"
+>
+  <button
+    class="text-red-500 hover:text-red-400 mx-2 transition-transform duration-200 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500 rounded-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="text-gray-400 hover:text-gray-200 mx-2 transition-all duration-200 ease-in-out hover:rotate-12 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="text-gray-400 hover:text-gray-200 mx-2 transition-all duration-200 ease-in-out hover:bg-gray-800 hover:shadow-md rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-gray-400"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="text-gray-400 hover:text-gray-200 mx-2 transition-transform duration-200 ease-in-out hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="text-gray-400 hover:text-gray-200 mx-2 transition-all duration-200 ease-in-out hover:rotate-180 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+      ></path>
+    </svg>
+  </button>
+</div>
+
             </div>
+
+
+
           </div>
         </div>
       </div>

@@ -29,6 +29,7 @@ tickiDisplay.classList.add("flex");
   }
 });
 
+
 // helpers for localStorage
 function getTodos() {
   return JSON.parse(localStorage.getItem("todos")) || [];
@@ -158,8 +159,6 @@ function updateStreakUi() {
   const streak = claculateStreak();
   const streakCount = document.querySelector(".streakCount");
   streakCount.textContent = `🔥 ${streak}`;
-
-
 
 
 }
@@ -460,6 +459,53 @@ searchTodo.addEventListener("input", function () {
   })
   renderTodos(filteredTodo);
 })
+
+
+function displayTime(){
+  const tickiWatchTime = document.querySelector(".tickiTime");
+const readableDate =
+      new Date().toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
+tickiWatchTime.innerHTML = `${readableDate}`
+}
+
+function aciveTimer() {
+  const now = new Date();
+
+  const tickiTimerHr = now.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+  });
+
+  const tickiTimerMin = now.toLocaleTimeString("en-GB", {
+    minute: "2-digit",
+  });
+
+  document.querySelector(".activeHr").innerHTML = tickiTimerHr;
+  document.querySelector(".activeMin").innerHTML = tickiTimerMin;
+}
+
+aciveTimer();
+
+setInterval(aciveTimer, 1000);
+
+
+tickiBtn.addEventListener("click", function(e){
+   e.preventDefault();
+  
+
+
+
+
+
+setInterval(displayTime(), 1000);
+})
+
 
 
 
