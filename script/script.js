@@ -494,7 +494,7 @@ aciveTimer();
 
 setInterval(aciveTimer, 1000);
 
-
+//Ticki swiper
 const swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
@@ -505,6 +505,28 @@ const swiper = new Swiper(".mySwiper", {
     },
   });
 
+swiper.on("slideChange", ()=> {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  const mode = activeSlide.dataset.mode;
+const currentMode = document.querySelector(".currentMode");
+
+switch (mode) {
+  case "clock":
+    currentMode.innerHTML = "Clock";
+    break;
+
+  case "break":
+    currentMode.innerHTML = "Break";
+    break;
+
+  case "stopwatch":
+    currentMode.innerHTML = "Stopwatch";
+    break;
+
+  default:
+    currentMode.innerHTML = "Error";
+}
+});
 
 
 
