@@ -495,16 +495,15 @@ aciveTimer();
 setInterval(aciveTimer, 1000);
 
 
-tickiBtn.addEventListener("click", function(e){
-   e.preventDefault();
-  
+const swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
 
-
-
-
-
-setInterval(displayTime(), 1000);
-})
+    navigation: {
+      nextEl: ".next",
+      prevEl: ".previous",
+    },
+  });
 
 
 
