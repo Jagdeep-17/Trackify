@@ -16,6 +16,8 @@ const personalTasksBtn = document.querySelector(".personalTag");
 const tickiBtn = document.querySelector(".ticki");
 const tickiDisplay = document.querySelector(".tickiDisplay");
 
+
+
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
 });
@@ -475,24 +477,49 @@ const readableDate =
 tickiWatchTime.innerHTML = `${readableDate}`
 }
 
-function aciveTimer() {
+
+const timeFormatToggler =
+  document.querySelector("#switchBox");
+
+function activeTimer() {
+
   const now = new Date();
 
-  const tickiTimerHr = now.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-  });
+  const is12Hr =
+    timeFormatToggler.checked;
 
-  const tickiTimerMin = now.toLocaleTimeString("en-GB", {
-    minute: "2-digit",
-  });
+  let hr = now.getHours();
 
-  document.querySelector(".activeHr").innerHTML = tickiTimerHr;
-  document.querySelector(".activeMin").innerHTML = tickiTimerMin;
+  if (is12Hr) {
+
+    hr = hr % 12 || 12;
+  }
+
+  const min =
+    String(now.getMinutes()).padStart(2, "0");
+
+  const sec =
+    String(now.getSeconds()).padStart(2, "0");
+
+  document.querySelector(".activeHr").innerHTML =
+    String(hr).padStart(2, "0");
+
+  document.querySelector(".activeMin").innerHTML =
+    min;
+
+  document.querySelector(".activeSec").innerHTML =
+    sec;
 }
 
-aciveTimer();
+activeTimer();
 
-setInterval(aciveTimer, 1000);
+setInterval(activeTimer, 1000);
+
+timeFormatToggler.addEventListener(
+  "change",
+  activeTimer
+);
+
 
 //Ticki swiper
 const swiper = new Swiper(".mySwiper", {
@@ -530,6 +557,12 @@ switch (mode) {
 
 
 
+
+
+tickiBtn.addEventListener("click", ()=> {
+displayTime();
+
+})
 
 
 // create todo

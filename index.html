@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trackify</title>
-  <link rel="icon" type="image/png" href="src\assets\logo.svg">
+  <link rel="icon" type="image/png" href="src\assets\logo.svg" />
 
   <link rel="stylesheet" href="./dist/output.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
@@ -14,19 +14,14 @@
 </head>
 
 <body class="overflow-x-hidden bg-[#0f1115] bg-linear-to-br from-violet-950 via-black to-yellow-950 text-white">
-
   <div class="flex min-h-screen max-w-full overflow-x-hidden">
-
     <aside class="flex w-70 shrink-0 flex-col gap-4 border-r border-white/10 bg-[#111318] px-5 py-6">
-
       <div class="flex items-center gap-3">
         <div class="flex h-14 w-20 items-center justify-center rounded-xl text-xl font-bold">
-          <img src="src/assets/logo.svg" alt="logo">
+          <img src="src/assets/logo.svg" alt="logo" />
         </div>
 
-        <h1 class="text-2xl font-semibold tracking-wide">
-          Trackify
-        </h1>
+        <h1 class="text-2xl font-semibold tracking-wide">Trackify</h1>
       </div>
 
       <button
@@ -36,7 +31,6 @@
       </button>
 
       <div class="space-y-2">
-
         <button class="allTasks w-full rounded-xl bg-blue-700/80 px-4 py-2 text-left font-medium">
           All Tasks
         </button>
@@ -48,12 +42,9 @@
         <button class="pendingTasks w-full rounded-xl px-4 py-2 text-left transition hover:bg-white/5">
           Pending
         </button>
-
       </div>
       <div class="heatmap h-28 rounded-xl border border-zinc-800 bg-zinc-900/70 p-2">
-
         <div class="mb-2 flex items-center justify-between">
-
           <h6 class="text-[11px] font-semibold uppercase tracking-wide text-zinc-400">
             Task Progress
           </h6>
@@ -62,17 +53,11 @@
             class="rounded-md border border-violet-500/20 bg-violet-500/10 px-2 py-px text-[10px] text-violet-300 streakCount">
             🔥 0
           </div>
-
         </div>
 
-        <div class="heatmapWrapper flex flex-wrap gap-1 min-h-10">
-
-
-        </div>
-
+        <div class="heatmapWrapper flex flex-wrap gap-1 min-h-10"></div>
       </div>
       <div class="mt-2 flex items-center gap-1 text-[10px] text-zinc-500">
-
         <span>Less</span>
 
         <div class="h-3 w-3 rounded-[3px] bg-zinc-800"></div>
@@ -82,10 +67,8 @@
         <div class="h-3 w-3 rounded-[3px] bg-violet-400"></div>
 
         <span>More</span>
-
       </div>
       <div class="space-y-3 border-t border-white/10 pt-4">
-
         <h2 class="text-sm uppercase tracking-wider text-gray-400">
           Quick Lists
         </h2>
@@ -101,26 +84,17 @@
         <button class="personalTag w-full rounded-xl px-4 py-1 text-left transition hover:bg-white/5">
           Personal Tasks
         </button>
-
       </div>
-
     </aside>
 
     <main class="relative min-w-0 flex-1 overflow-x-hidden px-8 py-8">
-
       <div class="mx-auto max-w-5xl space-y-6">
-
         <div class="flex items-center justify-between">
-
-          <p class="text-gray-400">
-            Stay productive today
-          </p>
+          <p class="text-gray-400">Stay productive today</p>
 
           <div class="relative w-[320px]">
-
             <div
               class="group relative flex items-center overflow-visible rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-xl transition-all duration-300 hover:border-violet-500/40 focus-within:border-violet-400/60 focus-within:shadow-[0_0_30px_rgba(139,92,246,0.15)]">
-
               <div
                 class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-focus-within:opacity-100">
                 <div class="absolute inset-y-0 left-0 w-24 bg-linear-to-r from-violet-500/10 to-transparent blur-xl">
@@ -144,21 +118,14 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M7 12h10m-7 6h4" />
                 </svg>
               </button>
-
             </div>
-
           </div>
-
         </div>
 
         <div
           class="todo fixed left-1/2 top-24 z-100 hidden w-112.5 -translate-x-1/2 rounded-3xl border border-white/10 bg-[#171a20]/95 p-6 shadow-[0_0_60px_rgba(0,0,0,0.55)] backdrop-blur-xl">
-
           <form class="flex flex-col gap-4">
-
-            <label for="title" class="text-sm text-gray-300">
-              Title
-            </label>
+            <label for="title" class="text-sm text-gray-300"> Title </label>
 
             <input type="text" id="title"
               class="title rounded-xl border border-white/10 bg-[#0f1115] px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
@@ -173,50 +140,35 @@
               placeholder="Enter task details"></textarea>
 
             <div class="relative w-fit">
-
               <div class="group relative">
-
                 <select
                   class="tagName h-11 min-w-40 appearance-none rounded-xl border border-zinc-800 bg-zinc-900/90 px-4 pr-10 text-sm font-medium text-zinc-200 outline-none backdrop-blur-xl transition-all duration-300 hover:border-violet-500/40 focus:border-violet-400/60 focus:shadow-[0_0_20px_rgba(139,92,246,0.15)]">
-
                   <option value="Personal" class="bg-zinc-900">
                     Personal
                   </option>
 
-                  <option value="Study" class="bg-zinc-900">
-                    Study
-                  </option>
+                  <option value="Study" class="bg-zinc-900">Study</option>
 
-                  <option value="Daily" class="bg-zinc-900">
-                    Daily
-                  </option>
-
+                  <option value="Daily" class="bg-zinc-900">Daily</option>
                 </select>
 
                 <div
                   class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors duration-300 group-focus-within:text-violet-400">
-
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7" />
                   </svg>
-
                 </div>
-
               </div>
-
             </div>
 
             <button type="submit"
               class="submit rounded-xl bg-violet-600 py-3 font-semibold transition hover:bg-violet-700">
               Create Task
             </button>
-
           </form>
-
         </div>
         <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
-
           <button
             class="group relative flex h-16 w-[72px] items-center overflow-hidden rounded-full border border-zinc-800 bg-black/95 px-2 backdrop-blur-xl transition-all duration-300 hover:w-[260px] hover:border-pink-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_35px_rgba(236,72,153,0.18),0_0_80px_rgba(0,0,0,0.9)]">
             <div
@@ -229,7 +181,7 @@
             </div>
 
             <div
-              class="relative  ml-4 flex min-w-[160px] flex-col justify-center opacity-0 transition-all duration-300 group-hover:opacity-100 ">
+              class="relative ml-4 flex min-w-[160px] flex-col justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
               <div class="flex items-center justify-between">
                 <span class="text-sm font-semibold uppercase text-zinc-100">
                   Jagdeep Singh
@@ -237,9 +189,7 @@
               </div>
 
               <div class="mt-1 flex items-center justify-between">
-                <span class="text-xs text-zinc-500">
-                  @jagdeep.dev
-                </span>
+                <span class="text-xs text-zinc-500"> @jagdeep.dev </span>
 
                 <span
                   class="rounded-full border border-zinc-800 bg-zinc-950 px-2 py-0.5 text-[10px] font-medium text-violet-400">
@@ -250,223 +200,166 @@
           </button>
 
           <button
-            class=" ticki    flex h-16 w-16 items-center justify-center rounded-full border border-zinc-800 bg-black/95 p-2 backdrop-blur-xl transition-all duration-300 hover:border-pink-500/30 hover:shadow-[0_0_25px_rgba(236,72,153,0.18)] shadow-[0_10px_30px_rgba(0,0,0,0.7)]">
+            class="ticki flex h-16 w-16 items-center justify-center rounded-full border border-zinc-800 bg-black/95 p-2 backdrop-blur-xl transition-all duration-300 hover:border-pink-500/30 hover:shadow-[0_0_25px_rgba(236,72,153,0.18)] shadow-[0_10px_30px_rgba(0,0,0,0.7)]">
             <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-full">
               <img src="src\assets\logo.svg" alt="Profile" class="h-full w-full object-cover" />
             </div>
           </button>
-
         </div>
 
         <div class="savedTodo grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
 
-
         <div
-  class="group tickiDisplay hidden fixed bottom-6 right-28 z-50 h-102 w-88 overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.35),rgba(9,9,11,0.18))] shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/30 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)]"
->
-  <div
-    class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,0.12),transparent_55%)]"
-  ></div>
+          class="group tickiDisplay hidden fixed bottom-6 right-28 z-50 h-102 w-88 overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(24,24,27,0.35),rgba(9,9,11,0.18))] shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/30 hover:shadow-[0_0_35px_rgba(34,211,238,0.12)]">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(6,182,212,0.12),transparent_55%)]"></div>
 
-  <div
-    class="absolute right-[-6px] top-24 h-14 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.7)]"
-  ></div>
+          <div
+            class="absolute right-[-6px] top-24 h-14 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.7)]">
+          </div>
 
-  <div
-    class="relative h-full w-full rounded-[1.7rem] border border-zinc-800 bg-zinc-950/95 p-6 shadow-inner shadow-black/40"
-  >
+          <div
+            class="relative h-full w-full rounded-[1.7rem] border border-zinc-800 bg-zinc-950/95 p-6 shadow-inner shadow-black/40">
+            <!-- TOP BAR -->
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs font-medium uppercase tracking-[0.25em] text-violet-400">
+                  Ticki
+                </p>
 
-    <!-- TOP BAR -->
-    <div class="flex items-center justify-between">
-      <div>
-        <p
-          class="text-xs font-medium uppercase tracking-[0.25em] text-violet-400"
-        >
-          Ticki
-        </p>
-
-        <span class="text-xs text-zinc-500 tickiTime"></span>
-      </div>
-
-      <div
-        class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400"
-      >
-        Active
-      </div>
-    </div>
-
-    <!-- SWIPER -->
-    <div class="swiper mySwiper mt-5 h-[72%] w-full overflow-hidden">
-
-      <div class="swiper-wrapper h-full cursor-grab">
-
-        <!-- SLIDE 1 -->
-        <div class="swiper-slide h-full" data-mode="clock">
-
-          <div class="flex h-full flex-col items-center ">
-
-             <span
-              class="text-[11px] uppercase tracking-[0.4em] text-sky-400"
-            >
-              Clock
-            </span>
-
-              <div class="relative flex items-center justify-center">
-
-                <div
-                  class="absolute h-24 w-24 rounded-full bg-cyan-500/10 blur-3xl"
-                ></div>
-
-                <div class="relative z-10 flex flex-col items-center">
-
-                  <span
-                    class="mt-2 text-6xl font-black tracking-[-0.08em] text-zinc-100"
-                  >
-                    <span class="activeHr"></span>
-                    <span class="text-cyan-400">:</span>
-                    <span class="activeMin"></span>
-                  </span>
-
-                  <p class="mt-2 text-sm text-zinc-500">
-                    Stay locked in
-                  </p>
-
-                </div>
-
+                <span class="text-xs text-zinc-500 tickiTime"></span>
               </div>
 
+              <div
+                class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold text-emerald-400">
+                Active
+              </div>
+            </div>
+
+            <!-- SWIPER -->
+            <div class="swiper mySwiper mt-5 h-[72%] w-full overflow-hidden">
+              <div class="swiper-wrapper h-full cursor-grab">
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide h-full" data-mode="clock">
+                  <div class="flex h-full flex-col items-center">
+                    <span class="text-[11px] uppercase tracking-[0.4em] text-sky-400">
+                      Clock
+                    </span>
+
+                    <div class="relative flex items-center justify-center">
+                      <div class="absolute h-24 w-24 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+                      <div class="relative z-10 flex flex-col items-center">
+                        <span class="mt-2 font-black tracking-[-0.08em] text-zinc-100">
+                          <span class="activeHr text-6xl"></span>
+                          <span class="text-cyan-400 text-6xl">:</span>
+                          <span class="activeMin text-6xl"></span>
+                          <span class="activeSec text-sm font-light"></span>
+                        </span>
+
+                        <p class="mt-2 text-sm text-zinc-500">
+                          Stay locked in
+                        </p>
+
+                        
+
+                        <div
+                          class="relative mx-auto flex h-10 w-[120px] items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),0_2px_10px_rgba(0,0,0,0.4)] mt-2">
+                          <span class="absolute left-[14px] text-[11px] font-bold tracking-wide text-emerald-400">
+                            24HR
+                          </span>
+
+                          <span class="absolute right-[12px] text-[11px] font-bold tracking-wide text-red-400">
+                            12HR
+                          </span>
+
+                          <input checked id="switchBox" type="checkbox" class="peer hidden" />
+
+                          <label for="switchBox"
+                            class="absolute left-[4px] z-10 flex h-8 w-[52px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-b from-zinc-100 via-zinc-300 to-zinc-500 shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),0_2px_8px_rgba(0,0,0,0.5)] transition-all duration-300 peer-checked:left-[64px]">
+                            <span
+                              class="h-5 w-5 rounded-full bg-sky-500 shadow-[inset_0_1px_2px_rgba(0,0,0,0.6),0_0_12px_rgba(34,197,94,0.7)] transition-all duration-300 peer-checked:bg-red-500 peer-checked:shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="swiper-slide h-full" data-mode="stopwatch">
+                  <div class="flex h-full flex-col items-center">
+                    <span class="text-[11px] uppercase tracking-[0.4em] text-orange-400">
+                      Stopwatch
+                    </span>
+
+                    <span class="mt-4 text-6xl font-black tracking-[-0.08em] text-zinc-100">
+                      00<span class="text-orange-400">:</span>58
+                    </span>
+
+                    <p class="mt-3 text-sm text-zinc-500">
+                      Activity tracking active
+                    </p>
+                  </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="swiper-slide h-full" data-mode="break">
+                  <div class="flex h-full flex-col items-center">
+                    <span class="text-[11px] uppercase tracking-[0.4em] text-emerald-400">
+                      Break Mode
+                    </span>
+
+                    <span class="mt-4 text-6xl font-black tracking-[-0.08em] text-zinc-100">
+                      05<span class="text-emerald-400">:</span>00
+                    </span>
+
+                    <p class="mt-3 text-sm text-zinc-500">
+                      Relax and recharge
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NAVIGATION -->
+            <div
+              class="absolute bottom-6 left-1/2 flex w-[88%] -translate-x-1/2 items-center justify-between rounded-[2rem] border border-zinc-800/80 bg-[linear-gradient(180deg,rgba(24,24,32,0.95),rgba(18,18,26,0.92))] px-3 py-4 shadow-[0_15px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+              <div
+                class="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08),transparent_65%)]">
+              </div>
+
+              <button
+                class="previous relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                  stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+              </button>
+
+              <div class="relative z-10 flex flex-col items-center gap-2">
+                <span class="text-[11px] uppercase tracking-[0.4em] text-zinc-500">
+                  Current Mode
+                </span>
+
+                <span class="text-2xl font-semibold text-zinc-100 currentMode">
+                  Ticki
+                </span>
+              </div>
+
+              <button
+                class="next relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                  stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+            </div>
           </div>
-
         </div>
-
-        <!-- SLIDE 2 -->
-        <div class="swiper-slide h-full" data-mode="stopwatch">
-
-          <div class="flex h-full flex-col items-center ">
-
-            <span
-              class="text-[11px] uppercase tracking-[0.4em] text-orange-400"
-            >
-              Stopwatch
-            </span>
-
-            <span
-              class="mt-4 text-6xl font-black tracking-[-0.08em] text-zinc-100"
-            >
-              00<span class="text-orange-400">:</span>58
-            </span>
-
-            <p class="mt-3 text-sm text-zinc-500">
-              Activity tracking active
-            </p>
-
-          </div>
-
-        </div>
-
-        <!-- SLIDE 3 -->
-        <div class="swiper-slide h-full" data-mode="break">
-
-          <div class="flex h-full flex-col items-center ">
-
-            <span
-              class="text-[11px] uppercase tracking-[0.4em] text-emerald-400"
-            >
-              Break Mode
-            </span>
-
-            <span
-              class="mt-4 text-6xl font-black tracking-[-0.08em] text-zinc-100"
-            >
-              05<span class="text-emerald-400">:</span>00
-            </span>
-
-            <p class="mt-3 text-sm text-zinc-500">
-              Relax and recharge
-            </p>
-
-          </div>
-
-        </div>
-
       </div>
-
-    </div>
-
-    <!-- NAVIGATION -->
-    <div
-      class="absolute bottom-6 left-1/2 flex w-[88%] -translate-x-1/2 items-center justify-between rounded-[2rem] border border-zinc-800/80 bg-[linear-gradient(180deg,rgba(24,24,32,0.95),rgba(18,18,26,0.92))] px-3 py-4 shadow-[0_15px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl"
-    >
-
-      <div
-        class="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08),transparent_65%)]"
-      ></div>
-
-      <button
-        class="previous relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.8"
-          stroke="currentColor"
-          class="h-6 w-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.75 19.5 8.25 12l7.5-7.5"
-          />
-        </svg>
-      </button>
-
-      <div class="relative z-10 flex flex-col items-center gap-2">
-
-        <span
-          class="text-[11px] uppercase tracking-[0.4em] text-zinc-500 "
-        >
-          Current Mode
-        </span>
-
-        <span class=" text-2xl font-semibold text-zinc-100 currentMode">
-          Ticki
-        </span>
-
-      </div>
-
-      <button
-        class="next relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-700/80 bg-zinc-900/70 text-zinc-400 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 hover:text-cyan-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.8"
-          stroke="currentColor"
-          class="h-6 w-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
-      </button>
-
-    </div>
-
-  </div>
-</div>
-
-
-      </div>
-
     </main>
-
   </div>
-
-
 </body>
 
 </html>
