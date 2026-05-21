@@ -90,7 +90,7 @@
     <main class="relative min-w-0 flex-1 overflow-x-hidden px-8 py-8">
       <div class="mx-auto max-w-5xl space-y-6">
         <div class="flex items-center justify-between">
-          <p class="text-gray-400">Stay productive today</p>
+          <p class="text-gray-400">I am a Fucking Genius</p>
 
           <div class="relative w-[320px]">
             <div
@@ -260,8 +260,6 @@
                           Stay locked in
                         </p>
 
-                        
-
                         <div
                           class="relative mx-auto flex h-10 w-[120px] items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),0_2px_10px_rgba(0,0,0,0.4)] mt-2">
                           <span class="absolute left-[14px] text-[11px] font-bold tracking-wide text-emerald-400">
@@ -293,13 +291,33 @@
                       Stopwatch
                     </span>
 
-                    <span class="mt-4 text-6xl font-black tracking-[-0.08em] text-zinc-100">
-                      00<span class="text-orange-400">:</span>58
+                    <span class="mt-4 text-6xl font-black -tracking-tight text-zinc-100">
+                      <span class="hr_Stopwatch text-6xl">00</span>
+                          <span class="text-orange-400 text-6xl">:</span>
+                          <span class="min_Stopwatch text-6xl">00</span>
+                          <span class="sec_Stopwatch text-sm font-light">00</span>
                     </span>
 
                     <p class="mt-3 text-sm text-zinc-500">
                       Activity tracking active
                     </p>
+                    <div
+                      class="mt-5 flex gap-2">
+                      <button
+                        class="rounded-full border border-zinc-700 bg-zinc-900 px-5 py-2 text-sm font-medium text-zinc-300 transition-all duration-300 hover:border-orange-500 hover:bg-orange-500/10 hover:text-orange-400 active:scale-95">
+                        New
+                      </button>
+
+                      <button
+                        class=" startedStopwatch    rounded-full bg-orange-500 px-6 py-2 text-sm font-semibold text-black shadow-[0_0_20px_rgba(255,115,0,0.45)] transition-all duration-300 hover:scale-105 hover:bg-orange-400 active:scale-95">
+                        Start
+                      </button>
+
+                      <button
+                        class="stopStopwatch         rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2 text-sm font-medium text-red-400 transition-all duration-300 hover:bg-red-500/20 hover:text-red-300 active:scale-95">
+                        Stop
+                      </button>
+                    </div>
                   </div>
                 </div>
 

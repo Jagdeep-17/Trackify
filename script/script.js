@@ -21,13 +21,13 @@ const tickiDisplay = document.querySelector(".tickiDisplay");
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
 });
-tickiBtn.addEventListener("click", function(){
+tickiBtn.addEventListener("click", function () {
   if (tickiDisplay.classList.contains("flex")) {
     tickiDisplay.classList.remove("flex");
     tickiDisplay.classList.add("hidden");
-  }else{
-tickiDisplay.classList.remove("hidden");
-tickiDisplay.classList.add("flex");
+  } else {
+    tickiDisplay.classList.remove("hidden");
+    tickiDisplay.classList.add("flex");
   }
 });
 
@@ -345,7 +345,7 @@ window.addEventListener("DOMContentLoaded", function () {
 function clearFields() {
   title.value = "";
   description.value = "";
-}
+};
 
 
 // delete logic
@@ -380,7 +380,7 @@ savedTodoBox.addEventListener("click", function (e) {
   todoForm.classList.remove("hidden")
 
 
-})
+});
 
 // mark as completed logic 
 savedTodoBox.addEventListener("click", function (e) {
@@ -399,7 +399,7 @@ savedTodoBox.addEventListener("click", function (e) {
 })
 //allTasks
 allTaskBtn.addEventListener("click", function () {
-  renderTodos()
+  renderTodos();
 })
 //completedTasks 
 completedTasksBtn.addEventListener("click", function () {
@@ -463,18 +463,18 @@ searchTodo.addEventListener("input", function () {
 })
 
 
-function displayTime(){
+function displayTime() {
   const tickiWatchTime = document.querySelector(".tickiTime");
-const readableDate =
-      new Date().toLocaleDateString(
-        "en-US",
-        {
-          month: "short",
-          day: "numeric",
-          year: "numeric"
-        }
-      );
-tickiWatchTime.innerHTML = `${readableDate}`
+  const readableDate =
+    new Date().toLocaleDateString(
+      "en-US",
+      {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      }
+    );
+  tickiWatchTime.innerHTML = `${readableDate}`
 }
 
 
@@ -523,44 +523,80 @@ timeFormatToggler.addEventListener(
 
 //Ticki swiper
 const swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
+  slidesPerView: 1,
+  spaceBetween: 20,
 
-    navigation: {
-      nextEl: ".next",
-      prevEl: ".previous",
-    },
-  });
+  navigation: {
+    nextEl: ".next",
+    prevEl: ".previous",
+  },
+});
 
-swiper.on("slideChange", ()=> {
+swiper.on("slideChange", () => {
   const activeSlide = swiper.slides[swiper.activeIndex];
   const mode = activeSlide.dataset.mode;
-const currentMode = document.querySelector(".currentMode");
+  const currentMode = document.querySelector(".currentMode");
 
-switch (mode) {
-  case "clock":
-    currentMode.innerHTML = "Clock";
-    break;
+  switch (mode) {
+    case "clock":
+      currentMode.innerHTML = "Clock";
+      break;
 
-  case "break":
-    currentMode.innerHTML = "Break";
-    break;
+    case "break":
+      currentMode.innerHTML = "Break";
+      break;
 
-  case "stopwatch":
-    currentMode.innerHTML = "Stopwatch";
-    break;
+    case "stopwatch":
+      currentMode.innerHTML = "Stopwatch";
+      break;
 
-  default:
-    currentMode.innerHTML = "Error";
-}
+    default:
+      currentMode.innerHTML = "Error";
+  }
+});
+
+
+let startedTime = 0;
+let timeTaken = 0;
+let interval = null;
+const  startedBtn = document.querySelector(".startedStopwatch ");
+startedBtn.addEventListener("click",(e)=>{
+  const secDisplay= document.querySelector(".sec_Stopwatch");
+const hrDisplay = document.querySelector(".hr_Stopwatch");
+const minDisplay = document.querySelector(".min_Stopwatch");
+  startedTime = Date.now() - timeTaken;
+
+interval = setInterval(()=>{
+timeTaken = Date.now() - startedTime;
+const hr = Math.floor(timeTaken / 3600000);
+
+const min = Math.floor(
+  (timeTaken % 3600000) / 60000
+);
+
+const sec = Math.floor(
+  (timeTaken % 60000) / 1000
+);
+
+secDisplay.innerHTML= " ";
+secDisplay.innerHTML = `${sec}`;
+minDisplay.innerHTML = " ";
+minDisplay.innerHTML =` ${min}`;
+hrDisplay.innerHTML = " ";
+hrDisplay.innerHTML = `${hr}`;
+});
 });
 
 
 
+function pauseStopwatch(){
+
+};
+function stopStopwatch(){}; 
 
 
-tickiBtn.addEventListener("click", ()=> {
-displayTime();
+tickiBtn.addEventListener("click", () => {
+  displayTime();
 
 })
 
