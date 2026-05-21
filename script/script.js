@@ -15,8 +15,8 @@ const studyTasksBtn = document.querySelector(".studyTag");
 const personalTasksBtn = document.querySelector(".personalTag");
 const tickiBtn = document.querySelector(".ticki");
 const tickiDisplay = document.querySelector(".tickiDisplay");
-
-
+const stopStopwatchBtn = document.querySelector(".stopStopwatch");
+const resetStopwatchBtn = document.querySelector(".resetStopwatch");
 
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
@@ -542,9 +542,6 @@ swiper.on("slideChange", () => {
       currentMode.innerHTML = "Clock";
       break;
 
-    case "break":
-      currentMode.innerHTML = "Break";
-      break;
 
     case "stopwatch":
       currentMode.innerHTML = "Stopwatch";
@@ -559,11 +556,12 @@ swiper.on("slideChange", () => {
 let startedTime = 0;
 let timeTaken = 0;
 let interval = null;
-const  startedBtn = document.querySelector(".startedStopwatch ");
-startedBtn.addEventListener("click",(e)=>{
-  const secDisplay= document.querySelector(".sec_Stopwatch");
+ const secDisplay= document.querySelector(".sec_Stopwatch");
 const hrDisplay = document.querySelector(".hr_Stopwatch");
 const minDisplay = document.querySelector(".min_Stopwatch");
+const  startedBtn = document.querySelector(".startedStopwatch ");
+startedBtn.addEventListener("click",(e)=>{
+ 
   startedTime = Date.now() - timeTaken;
 
 interval = setInterval(()=>{
@@ -587,12 +585,19 @@ hrDisplay.innerHTML = `${hr}`;
 });
 });
 
+stopStopwatchBtn.addEventListener("click", function(){
+  clearInterval(interval);
+});
 
 
-function pauseStopwatch(){
-
-};
-function stopStopwatch(){}; 
+resetStopwatchBtn.addEventListener("click", ()=>{
+clearInterval(interval);
+startedTime = 0;
+timeTaken = 0;
+hrDisplay.textContent = "00";
+  minDisplay.textContent = "00";
+  secDisplay.textContent = "00";
+});
 
 
 tickiBtn.addEventListener("click", () => {
