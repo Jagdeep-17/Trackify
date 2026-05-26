@@ -606,6 +606,16 @@ tickiBtn.addEventListener("click", () => {
 })
 
 
+ function toggleWeather() {
+    const el = document.getElementById('weather-expandable');
+    const ch = document.getElementById('weather-chevron');
+    const lb = document.getElementById('weather-btn-label');
+    const open = el.classList.toggle('grid-rows-[1fr]');
+    el.classList.toggle('grid-rows-[0fr]', !open);
+    ch.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+    lb.textContent = open ? 'Show less' : 'Show more';
+  }
+
 // create todo
 submitBtn.addEventListener("click", function (e) {
   e.preventDefault();
