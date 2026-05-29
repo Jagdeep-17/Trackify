@@ -31,6 +31,14 @@ tickiBtn.addEventListener("click", function () {
   }
 });
 
+function showLoader(){
+document.querySelector("#loader").classList.replace("hidden", "flex");
+};
+
+function hideLoader(){
+document.querySelector("#loader").classList.replace("flex", "hidden");
+};
+
 
 // helpers for localStorage
 function getTodos() {
@@ -606,15 +614,7 @@ tickiBtn.addEventListener("click", () => {
 })
 
 
- function toggleWeather() {
-    const el = document.getElementById('weather-expandable');
-    const ch = document.getElementById('weather-chevron');
-    const lb = document.getElementById('weather-btn-label');
-    const open = el.classList.toggle('grid-rows-[1fr]');
-    el.classList.toggle('grid-rows-[0fr]', !open);
-    ch.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
-    lb.textContent = open ? 'Show less' : 'Show more';
-  }
+ 
 
 // create todo
 submitBtn.addEventListener("click", function (e) {
@@ -669,3 +669,32 @@ submitBtn.addEventListener("click", function (e) {
   clearFields();
   todoForm.classList.add("hidden");
 });
+
+function toggleWeather() {
+    const el = document.getElementById('weather-expandable');
+    const ch = document.getElementById('weather-chevron');
+    const lb = document.getElementById('weather-btn-label');
+    const open = el.classList.toggle('grid-rows-[1fr]');
+    el.classList.toggle('grid-rows-[0fr]', !open);
+    ch.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+    lb.textContent = open ? 'Show less' : 'Show more';
+  }
+
+
+
+  function geoLocation() {
+    navigator.geolocation.getCurrentPosition(permissionGranted, permissionDenied);
+  };
+
+  function permissionGranted (Currentposition){
+let lan = Currentposition.coords.latitude;
+let log = Currentposition.coords.longitude;
+console.log(` ${lan} and ${log} `);
+
+  };
+  
+ function permissionDenied(){
+console.log(Error);
+
+ };
+ geoLocation();
