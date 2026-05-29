@@ -31,14 +31,22 @@ tickiBtn.addEventListener("click", function () {
   }
 });
 
-function showLoader(){
-document.querySelector("#loader").classList.replace("hidden", "flex");
+function showLoader() {
+  document.querySelector("#loader").classList.replace("hidden", "flex");
 };
 
-function hideLoader(){
-document.querySelector("#loader").classList.replace("flex", "hidden");
+function hideLoader() {
+  document.querySelector("#loader").classList.replace("flex", "hidden");
 };
 
+
+function removeThing(){
+  const close = document.querySelector(".remove");
+  const notify = document.querySelector(".notification");
+  notify.classList.add("hidden");
+    notify.classList.remove("flex");
+
+};
 
 // helpers for localStorage
 function getTodos() {
@@ -564,45 +572,45 @@ swiper.on("slideChange", () => {
 let startedTime = 0;
 let timeTaken = 0;
 let interval = null;
- const secDisplay= document.querySelector(".sec_Stopwatch");
+const secDisplay = document.querySelector(".sec_Stopwatch");
 const hrDisplay = document.querySelector(".hr_Stopwatch");
 const minDisplay = document.querySelector(".min_Stopwatch");
-const  startedBtn = document.querySelector(".startedStopwatch ");
-startedBtn.addEventListener("click",(e)=>{
- 
+const startedBtn = document.querySelector(".startedStopwatch ");
+startedBtn.addEventListener("click", (e) => {
+
   startedTime = Date.now() - timeTaken;
 
-interval = setInterval(()=>{
-timeTaken = Date.now() - startedTime;
-const hr = Math.floor(timeTaken / 3600000);
+  interval = setInterval(() => {
+    timeTaken = Date.now() - startedTime;
+    const hr = Math.floor(timeTaken / 3600000);
 
-const min = Math.floor(
-  (timeTaken % 3600000) / 60000
-);
+    const min = Math.floor(
+      (timeTaken % 3600000) / 60000
+    );
 
-const sec = Math.floor(
-  (timeTaken % 60000) / 1000
-);
+    const sec = Math.floor(
+      (timeTaken % 60000) / 1000
+    );
 
-secDisplay.innerHTML= " ";
-secDisplay.innerHTML = `${sec}`;
-minDisplay.innerHTML = " ";
-minDisplay.innerHTML =` ${min}`;
-hrDisplay.innerHTML = " ";
-hrDisplay.innerHTML = `${hr}`;
+    secDisplay.innerHTML = " ";
+    secDisplay.innerHTML = `${sec}`;
+    minDisplay.innerHTML = " ";
+    minDisplay.innerHTML = ` ${min}`;
+    hrDisplay.innerHTML = " ";
+    hrDisplay.innerHTML = `${hr}`;
+  });
 });
-});
 
-stopStopwatchBtn.addEventListener("click", function(){
+stopStopwatchBtn.addEventListener("click", function () {
   clearInterval(interval);
 });
 
 
-resetStopwatchBtn.addEventListener("click", ()=>{
-clearInterval(interval);
-startedTime = 0;
-timeTaken = 0;
-hrDisplay.textContent = "00";
+resetStopwatchBtn.addEventListener("click", () => {
+  clearInterval(interval);
+  startedTime = 0;
+  timeTaken = 0;
+  hrDisplay.textContent = "00";
   minDisplay.textContent = "00";
   secDisplay.textContent = "00";
 });
@@ -614,7 +622,7 @@ tickiBtn.addEventListener("click", () => {
 })
 
 
- 
+
 
 // create todo
 submitBtn.addEventListener("click", function (e) {
@@ -671,30 +679,55 @@ submitBtn.addEventListener("click", function (e) {
 });
 
 function toggleWeather() {
-    const el = document.getElementById('weather-expandable');
-    const ch = document.getElementById('weather-chevron');
-    const lb = document.getElementById('weather-btn-label');
-    const open = el.classList.toggle('grid-rows-[1fr]');
-    el.classList.toggle('grid-rows-[0fr]', !open);
-    ch.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
-    lb.textContent = open ? 'Show less' : 'Show more';
-  }
+  const el = document.getElementById('weather-expandable');
+  const ch = document.getElementById('weather-chevron');
+  const lb = document.getElementById('weather-btn-label');
+  const open = el.classList.toggle('grid-rows-[1fr]');
+  el.classList.toggle('grid-rows-[0fr]', !open);
+  ch.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+  lb.textContent = open ? 'Show less' : 'Show more';
+}
 
 
 
-  function geoLocation() {
-    navigator.geolocation.getCurrentPosition(permissionGranted, permissionDenied);
+function geoLocation() {
+  navigator.geolocation.getCurrentPosition(permissionGranted, permissionDenied);
+};
+
+function permissionGranted(Currentposition) {
+  let lan = Currentposition.coords.latitude;
+  let log = Currentposition.coords.longitude;
+  console.log(` ${lan} and ${log} `);
+
+};
+
+function permissionDenied() {
+const searchCity = document.querySelector("#searchCity");
+  let enteredCity;
+searchCity.classList.replace("hidden", "flex");
+
+const enteredCityName = document.querySelector("#citySearch")
+enteredCityName.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+enteredCity = enteredCityName.value.trim();
+  showCorrdinates(enteredCity);
+}
+});
+};
+
+
+ function showCorrdinates (enteredCity){
+  const geoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${enteredCity}&limit=4&appid=${WEATHER_API_KEY}`
+
+    fetch(geoCoding)
+    .then((response)=>{
+      return response.json();
+    }).then((data)=>{
+      if(data.length === 0){
+        console.log("City not found");
+        
+      }
+      console.log(data);
+      
+    })
   };
-
-  function permissionGranted (Currentposition){
-let lan = Currentposition.coords.latitude;
-let log = Currentposition.coords.longitude;
-console.log(` ${lan} and ${log} `);
-
-  };
-  
- function permissionDenied(){
-console.log(Error);
-
- };
- geoLocation();

@@ -9,53 +9,145 @@
 
   <link rel="stylesheet" href="./dist/output.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  <script src="config.js"></script>
   <script src="script/script.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 </head>
 
 <style>
   @keyframes square-animation {
-  0%     { left: 0;    top: 0;    }
-  10.5%  { left: 0;    top: 0;    }
-  12.5%  { left: 32px; top: 0;    }
-  23%    { left: 32px; top: 0;    }
-  25%    { left: 64px; top: 0;    }
-  35.5%  { left: 64px; top: 0;    }
-  37.5%  { left: 64px; top: 32px; }
-  48%    { left: 64px; top: 32px; }
-  50%    { left: 32px; top: 32px; }
-  60.5%  { left: 32px; top: 32px; }
-  62.5%  { left: 32px; top: 64px; }
-  73%    { left: 32px; top: 64px; }
-  75%    { left: 0;    top: 64px; }
-  85.5%  { left: 0;    top: 64px; }
-  87.5%  { left: 0;    top: 32px; }
-  98%    { left: 0;    top: 32px; }
-  100%   { left: 0;    top: 0;    }
-}
-.sq { animation: square-animation 10s ease-in-out infinite both; }
-.sq:nth-child(1) { animation-delay: 0s; }
-.sq:nth-child(2) { animation-delay: -1.4285714286s; }
-.sq:nth-child(3) { animation-delay: -2.8571428571s; }
-.sq:nth-child(4) { animation-delay: -4.2857142857s; }
-.sq:nth-child(5) { animation-delay: -5.7142857143s; }
-.sq:nth-child(6) { animation-delay: -7.1428571429s; }
-.sq:nth-child(7) { animation-delay: -8.5714285714s; }
+    0% {
+      left: 0;
+      top: 0;
+    }
+
+    10.5% {
+      left: 0;
+      top: 0;
+    }
+
+    12.5% {
+      left: 32px;
+      top: 0;
+    }
+
+    23% {
+      left: 32px;
+      top: 0;
+    }
+
+    25% {
+      left: 64px;
+      top: 0;
+    }
+
+    35.5% {
+      left: 64px;
+      top: 0;
+    }
+
+    37.5% {
+      left: 64px;
+      top: 32px;
+    }
+
+    48% {
+      left: 64px;
+      top: 32px;
+    }
+
+    50% {
+      left: 32px;
+      top: 32px;
+    }
+
+    60.5% {
+      left: 32px;
+      top: 32px;
+    }
+
+    62.5% {
+      left: 32px;
+      top: 64px;
+    }
+
+    73% {
+      left: 32px;
+      top: 64px;
+    }
+
+    75% {
+      left: 0;
+      top: 64px;
+    }
+
+    85.5% {
+      left: 0;
+      top: 64px;
+    }
+
+    87.5% {
+      left: 0;
+      top: 32px;
+    }
+
+    98% {
+      left: 0;
+      top: 32px;
+    }
+
+    100% {
+      left: 0;
+      top: 0;
+    }
+  }
+
+  .sq {
+    animation: square-animation 10s ease-in-out infinite both;
+  }
+
+  .sq:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .sq:nth-child(2) {
+    animation-delay: -1.4285714286s;
+  }
+
+  .sq:nth-child(3) {
+    animation-delay: -2.8571428571s;
+  }
+
+  .sq:nth-child(4) {
+    animation-delay: -4.2857142857s;
+  }
+
+  .sq:nth-child(5) {
+    animation-delay: -5.7142857143s;
+  }
+
+  .sq:nth-child(6) {
+    animation-delay: -7.1428571429s;
+  }
+
+  .sq:nth-child(7) {
+    animation-delay: -8.5714285714s;
+  }
 </style>
 
 <body class="overflow-hidden bg-[#0f1115] bg-linear-to-br from-violet-950 via-black to-yellow-950 text-white h-screen">
 
   <div id="loader" class="  hidden fixed inset-0 z-50  items-center justify-center bg-black/20 backdrop-blur-sm">
-     <div class="relative w-24 h-24   " style="transform: rotate(45deg); ">
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
-</div>
-</div>
+    <div class="relative w-24 h-24   " style="transform: rotate(45deg); ">
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+      <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+    </div>
+  </div>
 
 
   <div class="flex h-screen max-w-full overflow-hidden">
@@ -150,17 +242,17 @@
               <div class="text-6xl font-light tracking-tighter leading-none mt-1">-1°</div>
               <div class="text-xs opacity-60 mt-2">Feels like -5° · Cloudy</div>
             </div>
-            <div class="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white/70 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
-  </svg>
-  <input
-    type="text"
-    id="citySearch"
-    placeholder="Search city..."
-    class="bg-transparent text-white placeholder-white/60 text-sm outline-none w-full"
-  />
-</div>
+            <div class="hidden items-center gap-2 bg-white/20 rounded-full px-4 py-2" id="searchCity">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white/70 shrink-0" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+              <input type="text" id="citySearch" placeholder="Search city..."
+                class="bg-transparent text-white placeholder-white/60 text-sm outline-none w-full" />
+                
+            </div>
+            
             <div class="flex flex-col items-end gap-2">
               <div class="text-3xl tracking-wide">20:30</div>
               <div class="bg-black/25 border border-white/15 rounded-full px-3 py-1 text-xs font-medium">☁ Cloudy</div>
@@ -275,6 +367,32 @@
         <div class="flex items-center justify-between">
           <p class="text-gray-400">I am a Fucking Genius</p>
 
+
+          <div class="w-80 p-3 hidden items-center bg-[#5a0991] rounded-lg shadow-[0px_0px_5px_-3px_#111] font-sans notification">
+  
+  <div class="w-5 h-5 -translate-y-0.5 mr-2 flex-shrink-0">
+    <svg fill="none" viewBox="0 0 24 24" class="w-full h-full">
+      <path
+        d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z"
+        fill="white"
+      />
+    </svg>
+  </div>
+
+  <div class="text-sm font-medium text-white  statusMessage">
+    lorem ipsum dolor sit amet
+  </div>
+
+  <div class="w-5 h-5 ml-auto cursor-pointer flex-shrink-0 remove" onclick="removeThing()">
+    <svg viewBox="0 0 20 20" class="w-full h-full">
+      <path
+        d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
+        fill="white"
+      />
+    </svg>
+  </div>
+
+</div>
 
           <div class="relative w-[320px]">
             <div
