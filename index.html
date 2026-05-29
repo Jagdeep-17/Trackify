@@ -13,7 +13,51 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 </head>
 
+<style>
+  @keyframes square-animation {
+  0%     { left: 0;    top: 0;    }
+  10.5%  { left: 0;    top: 0;    }
+  12.5%  { left: 32px; top: 0;    }
+  23%    { left: 32px; top: 0;    }
+  25%    { left: 64px; top: 0;    }
+  35.5%  { left: 64px; top: 0;    }
+  37.5%  { left: 64px; top: 32px; }
+  48%    { left: 64px; top: 32px; }
+  50%    { left: 32px; top: 32px; }
+  60.5%  { left: 32px; top: 32px; }
+  62.5%  { left: 32px; top: 64px; }
+  73%    { left: 32px; top: 64px; }
+  75%    { left: 0;    top: 64px; }
+  85.5%  { left: 0;    top: 64px; }
+  87.5%  { left: 0;    top: 32px; }
+  98%    { left: 0;    top: 32px; }
+  100%   { left: 0;    top: 0;    }
+}
+.sq { animation: square-animation 10s ease-in-out infinite both; }
+.sq:nth-child(1) { animation-delay: 0s; }
+.sq:nth-child(2) { animation-delay: -1.4285714286s; }
+.sq:nth-child(3) { animation-delay: -2.8571428571s; }
+.sq:nth-child(4) { animation-delay: -4.2857142857s; }
+.sq:nth-child(5) { animation-delay: -5.7142857143s; }
+.sq:nth-child(6) { animation-delay: -7.1428571429s; }
+.sq:nth-child(7) { animation-delay: -8.5714285714s; }
+</style>
+
 <body class="overflow-hidden bg-[#0f1115] bg-linear-to-br from-violet-950 via-black to-yellow-950 text-white h-screen">
+
+  <div id="loader" class="  hidden fixed inset-0 z-50  items-center justify-center bg-black/20 backdrop-blur-sm">
+     <div class="relative w-24 h-24   " style="transform: rotate(45deg); ">
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+  <div class="sq absolute top-0 left-0 w-5 h-5 m-0.5 bg-violet-500"></div>
+</div>
+</div>
+
+
   <div class="flex h-screen max-w-full overflow-hidden">
     <aside
       class="h-screen overflow-y-auto    flex w-70 shrink-0 flex-col gap-4 border-r border-white/10 bg-[#111318] px-5 py-6">
