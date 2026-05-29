@@ -3,3 +3,6 @@ dist/
 Google-labs/
 *.mp4
 src/assets/
+config.js
+test.html
+desktop.ini
