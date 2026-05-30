@@ -748,25 +748,40 @@ function permissionDenied() {
   enteredCityName.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       enteredCity = enteredCityName.value.trim();
+      
       showCorrdinates(enteredCity);
     }
+
   });
+  enteredCityName.addEventListener("input", () => {
+    if (enteredCityName.value.trim() === "") {
+        console.log("Closing dropdown");
+        closeCityDropdown();
+    }
+});
+  
 };
 
 
 function cityDropdowns(cities) {
   const dropdown_container = document.querySelector(".cityDropdowns");
+
+  dropdown_container.classList.remove("hidden");
   dropdown_container.innerHTML = '';
 
-  cities.forEach((city) => {
-    const dropdown = document.createElement("div");
-    dropdown.className = "flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-purple-50 transition-colors group";
-    dropdown.innerHTML = `
-      <span class="w-2 h-2 rounded-full bg-purple-400 shrink-0"></span>
+  if (cities.length === 0) {
+    dropdown_container.innerHTML = `<div class="px-4 py-3 text-center text-sm text-gray-400">No cities found</div>`;
+    return;
+  }
 
+  cities.forEach((city) => {
+    const item = document.createElement("div");
+    item.className = "flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-purple-50 transition-colors ";
+    item.innerHTML = `
+      <span class="w-2 h-2 rounded-full bg-purple-400 shrink-0"></span>
       <div class="flex flex-col min-w-0">
         <div class="flex items-center gap-2">
-          <span class="text-sm font-medium text-black truncate">${city.name}</span>
+          <span class="text-sm font-medium text-purple-900 truncate">${city.name}</span>
           <span class="text-xs text-white bg-purple-400 rounded-full px-2 py-0.5 shrink-0">${city.country}</span>
         </div>
         <div class="flex items-center gap-1.5 mt-0.5">
@@ -776,13 +791,16 @@ function cityDropdowns(cities) {
         </div>
       </div>
     `;
-
-    dropdown_container.appendChild(dropdown);
+    dropdown_container.appendChild(item);
   });
 }
 
+function closeCityDropdown() {
+  document.querySelector(".cityDropdowns").classList.add("hidden");
+}
+
 function showCorrdinates(enteredCity) {
-  const geoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${enteredCity}&limit=4&appid=${WEATHER_API_KEY}`
+  const geoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${enteredCity}&limit=3&appid=${WEATHER_API_KEY}`
   showLoader();
   fetch(geoCoding)
     .then((response) => {
@@ -814,4 +832,4 @@ return;
     });
 };
 
-geoLocation();
+// geoLocation();

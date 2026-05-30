@@ -242,20 +242,27 @@
               <div class="text-6xl font-light tracking-tighter leading-none mt-1">-1°</div>
               <div class="text-xs opacity-60 mt-2">Feels like -5° · Cloudy</div>
             </div>
-            <div>
-            <div class="hidden items-center gap-2 bg-white/20 rounded-full px-4 py-2 relative" id="searchCity">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white/70 shrink-0" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-              </svg>
-              <input type="text" id="citySearch" placeholder="Search city..."
-                class="bg-transparent text-white placeholder-white/60 text-sm outline-none w-full" />
+            <div class="relative">
+
+              <!-- Search Bar -->
+              <div class="hidden items-center gap-2 bg-white/20 rounded-full px-4 py-2" id="searchCity">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white/70 shrink-0" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                </svg>
+                <input type="text" id="citySearch" placeholder="Search city..."
+                  class="bg-transparent text-white placeholder-white/60 text-sm outline-none w-full" />
+              </div>
+
+              <div class="cityDropdowns hidden absolute left-0 right-0 top-[calc(100%+6px)] z-50
+              bg-white rounded-2xl overflow-y-visible py-2
+              border border-purple-200/40
+              shadow-[0_8px_24px_rgba(83,74,183,0.18)]" onclick="closeCityDropdown()">
+              </div>
 
             </div>
-          <div class="cityDropdowns"></div>
-            </div>
-            
+
             <div class="flex flex-col items-end gap-2">
               <div class="text-3xl tracking-wide">20:30</div>
               <div class="bg-black/25 border border-white/15 rounded-full px-3 py-1 text-xs font-medium">☁ Cloudy</div>
