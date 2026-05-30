@@ -242,7 +242,8 @@
               <div class="text-6xl font-light tracking-tighter leading-none mt-1">-1°</div>
               <div class="text-xs opacity-60 mt-2">Feels like -5° · Cloudy</div>
             </div>
-            <div class="hidden items-center gap-2 bg-white/20 rounded-full px-4 py-2" id="searchCity">
+            <div>
+            <div class="hidden items-center gap-2 bg-white/20 rounded-full px-4 py-2 relative" id="searchCity">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white/70 shrink-0" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -250,7 +251,9 @@
               </svg>
               <input type="text" id="citySearch" placeholder="Search city..."
                 class="bg-transparent text-white placeholder-white/60 text-sm outline-none w-full" />
-                
+
+            </div>
+          <div class="cityDropdowns"></div>
             </div>
             
             <div class="flex flex-col items-end gap-2">
@@ -368,31 +371,7 @@
           <p class="text-gray-400">I am a Fucking Genius</p>
 
 
-          <div class="w-80 p-3 hidden items-center bg-[#5a0991] rounded-lg shadow-[0px_0px_5px_-3px_#111] font-sans notification">
-  
-  <div class="w-5 h-5 -translate-y-0.5 mr-2 flex-shrink-0">
-    <svg fill="none" viewBox="0 0 24 24" class="w-full h-full">
-      <path
-        d="m13 14h-2v-5h2zm0 4h-2v-2h2zm-12 3h22l-11-19z"
-        fill="white"
-      />
-    </svg>
-  </div>
-
-  <div class="text-sm font-medium text-white  statusMessage">
-    lorem ipsum dolor sit amet
-  </div>
-
-  <div class="w-5 h-5 ml-auto cursor-pointer flex-shrink-0 remove" onclick="removeThing()">
-    <svg viewBox="0 0 20 20" class="w-full h-full">
-      <path
-        d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
-        fill="white"
-      />
-    </svg>
-  </div>
-
-</div>
+          <div id="notification-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3"></div>
 
           <div class="relative w-[320px]">
             <div
