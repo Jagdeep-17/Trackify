@@ -40,13 +40,51 @@ function hideLoader() {
 };
 
 
-function removeThing(){
+function removeThing() {
   const close = document.querySelector(".remove");
   const notify = document.querySelector(".notification");
   notify.classList.add("hidden");
-    notify.classList.remove("flex");
+  notify.classList.remove("flex");
 
 };
+
+function notify(message, type = 'info') {
+  let container = document.getElementById('notification-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'notification-container';
+    container.className = "fixed top-5 right-5 z-50 flex flex-col gap-3";
+    document.body.appendChild(container);
+  }
+
+  const notification = document.createElement('div');
+
+  let bgClass = "bg-blue-500";
+  if (type === 'success') bgClass = "bg-green-500";
+  if (type === 'error') bgClass = "bg-red-500";
+
+  notification.className = `notification flex items-center p-4 rounded shadow-lg text-white ${bgClass}`;
+
+  notification.innerHTML = `
+    <span class="mr-4">${message}</span>
+    <div class="w-5 h-5 ml-auto cursor-pointer flex-shrink-0 remove">
+      <svg viewBox="0 0 20 20" class="w-full h-full">
+        <path d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z" fill="white" />
+      </svg>
+    </div>
+  `;
+
+  container.appendChild(notification);
+
+  const closeButton = notification.querySelector(".remove");
+
+  closeButton.addEventListener("click", () => {
+    notification.classList.add("hidden");
+    notification.classList.remove("flex");
+
+  });
+}
+
 
 // helpers for localStorage
 function getTodos() {
@@ -702,32 +740,78 @@ function permissionGranted(Currentposition) {
 };
 
 function permissionDenied() {
-const searchCity = document.querySelector("#searchCity");
+  const searchCity = document.querySelector("#searchCity");
   let enteredCity;
-searchCity.classList.replace("hidden", "flex");
+  searchCity.classList.replace("hidden", "flex");
 
-const enteredCityName = document.querySelector("#citySearch")
-enteredCityName.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-enteredCity = enteredCityName.value.trim();
-  showCorrdinates(enteredCity);
-}
-});
+  const enteredCityName = document.querySelector("#citySearch")
+  enteredCityName.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      enteredCity = enteredCityName.value.trim();
+      showCorrdinates(enteredCity);
+    }
+  });
 };
 
 
- function showCorrdinates (enteredCity){
-  const geoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${enteredCity}&limit=4&appid=${WEATHER_API_KEY}`
+function cityDropdowns(cities) {
+  const dropdown_container = document.querySelector(".cityDropdowns");
+  dropdown_container.innerHTML = '';
 
-    fetch(geoCoding)
-    .then((response)=>{
-      return response.json();
-    }).then((data)=>{
-      if(data.length === 0){
-        console.log("City not found");
-        
+  cities.forEach((city) => {
+    const dropdown = document.createElement("div");
+    dropdown.className = "flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-purple-50 transition-colors group";
+    dropdown.innerHTML = `
+      <span class="w-2 h-2 rounded-full bg-purple-400 shrink-0"></span>
+
+      <div class="flex flex-col min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-medium text-black truncate">${city.name}</span>
+          <span class="text-xs text-white bg-purple-400 rounded-full px-2 py-0.5 shrink-0">${city.country}</span>
+        </div>
+        <div class="flex items-center gap-1.5 mt-0.5">
+          <span class="text-xs text-purple-400 truncate">${city.state}</span>
+          <span class="text-purple-200 text-xs">•</span>
+          <span class="text-xs text-purple-300 font-mono shrink-0">${parseFloat(city.lat).toFixed(2)}°, ${parseFloat(city.lon).toFixed(2)}°</span>
+        </div>
+      </div>
+    `;
+
+    dropdown_container.appendChild(dropdown);
+  });
+}
+
+function showCorrdinates(enteredCity) {
+  const geoCoding = `http://api.openweathermap.org/geo/1.0/direct?q=${enteredCity}&limit=4&appid=${WEATHER_API_KEY}`
+  showLoader();
+  fetch(geoCoding)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch data", "error");
       }
-      console.log(data);
-      
+      return response.json();
+    }).then((data) => {
+      if (data.length === 0) {
+        notify("City not found", "error");
+return;
+      }
+      if(data.length === 1){
+        cityDropdowns(data)
+      }
+      if(data.length> 1){
+        cityDropdowns(data);
+        return;
+      }
+    
     })
-  };
+    .catch((error)=>{
+      console.error(error);
+      notify("Something went wrong", "error")
+
+    })
+    .finally(()=>{
+      hideLoader();
+    });
+};
+
+geoLocation();
