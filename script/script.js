@@ -778,7 +778,7 @@ function cityDropdowns(cities) {
     return;
   }
 
-  
+
 
 
   cities.forEach((city) => {
@@ -799,17 +799,17 @@ function cityDropdowns(cities) {
       </div>
     `;
     dropdown_container.appendChild(item);
-item.addEventListener("click", ()=>{
-getCoordinatesDropdowns(city);
-});
+    item.addEventListener("click", () => {
+      getCoordinatesDropdowns(city);
+    });
   });
-  
+
 }
 
 function getCoordinatesDropdowns(city) {
-    fetchWeatherData(city.lat, city.lon);
-    closeCityDropdown();
-  };
+  fetchWeatherData(city.lat, city.lon);
+  closeCityDropdown();
+};
 
 
 function closeCityDropdown() {
@@ -831,11 +831,11 @@ function showCorrdinates(enteredCity) {
         return;
       }
       if (data.length === 1) {
-       const city = data[0];
+        const city = data[0];
 
-    fetchWeatherData(city.lat, city.lon);
+        fetchWeatherData(city.lat, city.lon);
 
-    return;
+        return;
       }
       if (data.length > 1) {
         cityDropdowns(data);
@@ -879,9 +879,10 @@ async function fetchWeatherData(lat, lon) {
       notify("City not found for weather", "error");
       return;
     }
-    if(geocodingData.length === 0){
-        notify("GeoLocation not found", "error");
-        return;}
+    if (geocodingData.length === 0) {
+      notify("GeoLocation not found", "error");
+      return;
+    }
 
     renderWeather(weatherData);
     renderGeolocation(geocodingData);
@@ -893,53 +894,61 @@ async function fetchWeatherData(lat, lon) {
     hideLoader();
   }
 
-  function renderWeather(data){
+  function renderWeather(data) {
     const currentDate = document.querySelector(".currentDateWeather");
     currentDate.innerHTML = formatDate(new Date(data.dt * 1000));
-    const temp =Math.round(data.main.temp)
-    document.querySelector(".temperature").innerHTML = `${temp}°` ;
+    const temp = Math.round(data.main.temp)
+    document.querySelector(".temperature").innerHTML = `${temp}°`;
     const feelsTemp = Math.round(data.main.feels_like);
     document.querySelector(".feelsLike").innerHTML = `Feels like ${feelsTemp}°`
     const weatherStatus = data.weather[0].main;
     document.querySelector(".mainWeatherStatus").innerHTML = weatherStatus;
     const currentTime = document.querySelector(".currentTime");
     function updateTime() {
-  const now = new Date();
-  currentTime.innerHTML = now.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
+      const now = new Date();
+      currentTime.innerHTML = now.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
 
-updateTime();
-setInterval(updateTime, 1000);
-const weatherDescription = data.weather[0].description;
-document.querySelector(".weather_description").innerHTML =weatherDescription;
-const iconCode = data.weather[0].icon; 
-const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-const iconElement = document.querySelector(".weather-icon");
-if (iconElement) {
-    iconElement.src = iconUrl;
-}
-const riseTime = formatTime(data.sys.sunrise);
-const setTime =formatTime(data.sys.sunset);
-document.querySelector(".riseTime").innerHTML = `Rise ${riseTime} `
-document.querySelector(".setTime").innerHTML = ` Set ${setTime} `
+    updateTime();
+    setInterval(updateTime, 1000);
+    const weatherDescription = data.weather[0].description;
+    document.querySelector(".weather_description").innerHTML = weatherDescription;
+    const iconCode = data.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    const iconElement = document.querySelector(".weather-icon");
+    if (iconElement) {
+      iconElement.src = iconUrl;
+    }
+    const riseTime = formatTime(data.sys.sunrise);
+    const setTime = formatTime(data.sys.sunset);
+    document.querySelector(".riseTime").innerHTML = `Rise ${riseTime} `
+    document.querySelector(".setTime").innerHTML = ` Set ${setTime} `
 
-const station =  data.name;
-document.querySelector(".station").innerHTML=  `Weather station in ${station}`
+    const station = data.name;
+    document.querySelector(".station").innerHTML = `Weather station in ${station}`
+    const humidity = data.main.humidity;
+    document.querySelector(".humidity").innerHTML = `${humidity} %`
 
+    const wind_speed = Math.round(data.wind.speed);
+    document.querySelector(".wind").innerHTML = `${wind_speed} m/sec`
 
+    const visibility = Math.round(data.visibility / 1000) + " km"; 
+    document.querySelector(".visibility").innerHTML = `${visibility}`
+    const pressure = data.main.pressure + "  hPa";
+    document.querySelector(".pressure").innerHTML = pressure;
 
   };
-  function renderGeolocation(city){
+  function renderGeolocation(city) {
 
-const {name} =city[0];
-document.querySelector(".cityName").innerHTML = name;
-const state = city[0].state;
-const country = city[0].country;
-document.querySelector(".state").innerHTML = state;
-document.querySelector(".country").innerHTML = country;
+    const { name } = city[0];
+    document.querySelector(".cityName").innerHTML = name;
+    const state = city[0].state;
+    const country = city[0].country;
+    document.querySelector(".state").innerHTML = state;
+    document.querySelector(".country").innerHTML = country;
 
   }
 }
