@@ -734,8 +734,8 @@ function geoLocation() {
 
 function permissionGranted(Currentposition) {
   let lat = Currentposition.coords.latitude;
-  let log = Currentposition.coords.longitude;
-  fetchWeatherData(lat, log);
+  let lon = Currentposition.coords.longitude;
+  fetchWeatherData(lat, lon);
 };
 
 function permissionDenied() {
@@ -825,8 +825,11 @@ function showCorrdinates(enteredCity) {
         return;
       }
       if (data.length === 1) {
-        cityDropdowns(data)
-        fetchWeatherData(data.lat, data.log)
+       const city = data[0];
+
+    fetchWeatherData(city.lat, city.lon);
+
+    return;
       }
       if (data.length > 1) {
         cityDropdowns(data);
@@ -844,9 +847,48 @@ function showCorrdinates(enteredCity) {
     });
 };
 
-function fetchWeatherData(lat, log) {
-  console.log(`${lat} and ${log}`);
 
+async function fetchWeatherData(lat, lon) {
+  showLoader();
+
+  const currentWeatherUrl =
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`;
+  const geoCoding = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${WEATHER_API_KEY}`
+
+  try {
+    const [weatherResponse, geoCodingResponse] = await Promise.all([
+      fetch(currentWeatherUrl),
+      fetch(geoCoding)
+    ]);
+
+    const weatherData = await weatherResponse.json();
+    const geocodingData = await geoCodingResponse.json();
+
+    if (weatherData.cod === 404) {
+      notify("City not found for weather", "error");
+      return;
+    }
+    if(geocodingData.length === 0){
+        notify("GeoLocation not found", "error");
+        return;}
+
+    renderWeather(weatherData);
+    renderGeolocation(geocodingData);
+
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    hideLoader();
+  }
+
+  function renderWeather(data){
+
+
+  };
+  function renderGeolocation(city){
+
+  }
 }
 
 geoLocation();
