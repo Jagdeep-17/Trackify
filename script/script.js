@@ -733,10 +733,9 @@ function geoLocation() {
 };
 
 function permissionGranted(Currentposition) {
-  let lan = Currentposition.coords.latitude;
+  let lat = Currentposition.coords.latitude;
   let log = Currentposition.coords.longitude;
-  console.log(` ${lan} and ${log} `);
-
+  fetchWeatherData(lat, log);
 };
 
 function permissionDenied() {
@@ -748,18 +747,17 @@ function permissionDenied() {
   enteredCityName.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       enteredCity = enteredCityName.value.trim();
-      
+
       showCorrdinates(enteredCity);
     }
 
   });
   enteredCityName.addEventListener("input", () => {
     if (enteredCityName.value.trim() === "") {
-        console.log("Closing dropdown");
-        closeCityDropdown();
+      closeCityDropdown();
     }
-});
-  
+  });
+
 };
 
 
@@ -773,6 +771,9 @@ function cityDropdowns(cities) {
     dropdown_container.innerHTML = `<div class="px-4 py-3 text-center text-sm text-gray-400">No cities found</div>`;
     return;
   }
+
+  
+
 
   cities.forEach((city) => {
     const item = document.createElement("div");
@@ -792,8 +793,18 @@ function cityDropdowns(cities) {
       </div>
     `;
     dropdown_container.appendChild(item);
+item.addEventListener("click", ()=>{
+getCoordinatesDropdowns(city);
+});
   });
+  
 }
+
+function getCoordinatesDropdowns(city) {
+    fetchWeatherData(city.lat, city.lon);
+    closeCityDropdown();
+  };
+
 
 function closeCityDropdown() {
   document.querySelector(".cityDropdowns").classList.add("hidden");
@@ -811,25 +822,31 @@ function showCorrdinates(enteredCity) {
     }).then((data) => {
       if (data.length === 0) {
         notify("City not found", "error");
-return;
+        return;
       }
-      if(data.length === 1){
+      if (data.length === 1) {
         cityDropdowns(data)
+        fetchWeatherData(data.lat, data.log)
       }
-      if(data.length> 1){
+      if (data.length > 1) {
         cityDropdowns(data);
         return;
       }
-    
+
     })
-    .catch((error)=>{
+    .catch((error) => {
       console.error(error);
       notify("Something went wrong", "error")
 
     })
-    .finally(()=>{
+    .finally(() => {
       hideLoader();
     });
 };
 
-// geoLocation();
+function fetchWeatherData(lat, log) {
+  console.log(`${lat} and ${log}`);
+
+}
+
+geoLocation();
