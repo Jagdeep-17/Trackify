@@ -235,12 +235,17 @@
             class="bg-gradient-to-br from-purple-900 via-violet-700 to-violet-500 p-5 flex items-start justify-between">
             <div>
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-sm font-medium opacity-90">London</span>
+                <span class="text-sm font-medium opacity-90 cityName"></span>
                 <span class="w-1 h-1 rounded-full bg-white/40"></span>
-                <span class="text-xs opacity-60">June 21, 2026</span>
+                <span class="text-xs opacity-60 currentDateWeather">June 21, 2026</span>
               </div>
-              <div class="text-6xl font-light tracking-tighter leading-none mt-1">-1°</div>
-              <div class="text-xs opacity-60 mt-2">Feels like -5° · Cloudy</div>
+              <div class="text-6xl font-light tracking-tighter leading-none mt-1 temperature"></div>
+              <div><span class="text-xs opacity-60 mt-2 feelsLike"> </span>
+                <span class="text-xs opacity-60 mt-2 mainWeatherStatus">· Cloudy</span>
+              </div>
+              <div><span class="text-sm font-medium opacity-90 station">Station</span>
+
+              </div>
             </div>
             <div class="relative">
 
@@ -258,15 +263,24 @@
               <div class="cityDropdowns hidden absolute left-0 right-0 top-[calc(100%+6px)] z-50
               bg-white rounded-2xl overflow-y-visible py-2
               border border-purple-200/40
-              shadow-[0_8px_24px_rgba(83,74,183,0.18)]" >
+              shadow-[0_8px_24px_rgba(83,74,183,0.18)]">
               </div>
 
             </div>
 
             <div class="flex flex-col items-end gap-2">
-              <div class="text-3xl tracking-wide">20:30</div>
-              <div class="bg-black/25 border border-white/15 rounded-full px-3 py-1 text-xs font-medium">☁ Cloudy</div>
-              <div class="text-xs opacity-55">Rise 04:43 · Set 21:18</div>
+              <div class="text-3xl tracking-wide currentTime">20:30</div>
+              <div
+                class="bg-black/25 border border-white/15 rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1">
+                <span class="weather_description"></span>
+                <img class="weather-icon w-6 h-6" src="" alt="Weather Condition">
+              </div>
+              <div class="text-xs opacity-55"><span class="riseTime"></span>·<span class="setTime"></span></div>
+              <div><span class="text-sm font-medium opacity-90 state">State</span>
+                <span>|</span>
+                <span class="text-lg font-medium opacity-90 country">Country</span>
+              </div>
+
             </div>
           </div>
 
@@ -288,6 +302,7 @@
               <div class="text-[11px] uppercase tracking-wider text-violet-400/60 mb-1.5">Pressure</div>
               <div class="text-lg font-medium">1012<span class="text-xs text-white/35 ml-0.5">hPa</span></div>
             </div>
+
           </div>
 
           <!-- Toggle Button -->

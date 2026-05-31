@@ -38,7 +38,13 @@ function showLoader() {
 function hideLoader() {
   document.querySelector("#loader").classList.replace("flex", "hidden");
 };
-
+function formatDate(date = new Date()) {
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 function removeThing() {
   const close = document.querySelector(".remove");
@@ -846,7 +852,12 @@ function showCorrdinates(enteredCity) {
       hideLoader();
     });
 };
-
+function formatTime(unix) {
+  return new Date(unix * 1000).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 async function fetchWeatherData(lat, lon) {
   showLoader();
@@ -883,10 +894,52 @@ async function fetchWeatherData(lat, lon) {
   }
 
   function renderWeather(data){
+    const currentDate = document.querySelector(".currentDateWeather");
+    currentDate.innerHTML = formatDate(new Date(data.dt * 1000));
+    const temp =Math.round(data.main.temp)
+    document.querySelector(".temperature").innerHTML = `${temp}°` ;
+    const feelsTemp = Math.round(data.main.feels_like);
+    document.querySelector(".feelsLike").innerHTML = `Feels like ${feelsTemp}°`
+    const weatherStatus = data.weather[0].main;
+    document.querySelector(".mainWeatherStatus").innerHTML = weatherStatus;
+    const currentTime = document.querySelector(".currentTime");
+    function updateTime() {
+  const now = new Date();
+  currentTime.innerHTML = now.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+const weatherDescription = data.weather[0].description;
+document.querySelector(".weather_description").innerHTML =weatherDescription;
+const iconCode = data.weather[0].icon; 
+const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+const iconElement = document.querySelector(".weather-icon");
+if (iconElement) {
+    iconElement.src = iconUrl;
+}
+const riseTime = formatTime(data.sys.sunrise);
+const setTime =formatTime(data.sys.sunset);
+document.querySelector(".riseTime").innerHTML = `Rise ${riseTime} `
+document.querySelector(".setTime").innerHTML = ` Set ${setTime} `
+
+const station =  data.name;
+document.querySelector(".station").innerHTML=  `Weather station in ${station}`
+
 
 
   };
   function renderGeolocation(city){
+
+const {name} =city[0];
+document.querySelector(".cityName").innerHTML = name;
+const state = city[0].state;
+const country = city[0].country;
+document.querySelector(".state").innerHTML = state;
+document.querySelector(".country").innerHTML = country;
 
   }
 }
