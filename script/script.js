@@ -862,18 +862,20 @@ function formatTime(unix) {
 async function fetchWeatherData(lat, lon) {
   showLoader();
 
-  const currentWeatherUrl =
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`;
+  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`;
   const geoCoding = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${WEATHER_API_KEY}`
-
+  const forecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`;
   try {
-    const [weatherResponse, geoCodingResponse] = await Promise.all([
+    const [weatherResponse, geoCodingResponse, forecastResponse] = await Promise.all([
       fetch(currentWeatherUrl),
-      fetch(geoCoding)
+      fetch(geoCoding),
+      fetch(forecast)
     ]);
 
     const weatherData = await weatherResponse.json();
     const geocodingData = await geoCodingResponse.json();
+    const forecastData = await forecastResponse.json();
+
 
     if (weatherData.cod === 404) {
       notify("City not found for weather", "error");
@@ -883,74 +885,120 @@ async function fetchWeatherData(lat, lon) {
       notify("GeoLocation not found", "error");
       return;
     }
+    if (forecastData.cod === 404) {
+      notify("Not able to access forecast data", "error");
+      return;
+    }
 
     renderWeather(weatherData);
     renderGeolocation(geocodingData);
-
+    renderForecast(forecastData);
 
   } catch (error) {
     console.error(error);
+    notify("System error", "error")
   } finally {
     hideLoader();
   }
 
-  function renderWeather(data) {
-    const currentDate = document.querySelector(".currentDateWeather");
-    currentDate.innerHTML = formatDate(new Date(data.dt * 1000));
-    const temp = Math.round(data.main.temp)
-    document.querySelector(".temperature").innerHTML = `${temp}°`;
-    const feelsTemp = Math.round(data.main.feels_like);
-    document.querySelector(".feelsLike").innerHTML = `Feels like ${feelsTemp}°`
-    const weatherStatus = data.weather[0].main;
-    document.querySelector(".mainWeatherStatus").innerHTML = weatherStatus;
-    const currentTime = document.querySelector(".currentTime");
-    function updateTime() {
-      const now = new Date();
-      currentTime.innerHTML = now.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    }
 
-    updateTime();
-    setInterval(updateTime, 1000);
-    const weatherDescription = data.weather[0].description;
-    document.querySelector(".weather_description").innerHTML = weatherDescription;
-    const iconCode = data.weather[0].icon;
-    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    const iconElement = document.querySelector(".weather-icon");
-    if (iconElement) {
-      iconElement.src = iconUrl;
-    }
-    const riseTime = formatTime(data.sys.sunrise);
-    const setTime = formatTime(data.sys.sunset);
-    document.querySelector(".riseTime").innerHTML = `Rise ${riseTime} `
-    document.querySelector(".setTime").innerHTML = ` Set ${setTime} `
 
-    const station = data.name;
-    document.querySelector(".station").innerHTML = `Weather station in ${station}`
-    const humidity = data.main.humidity;
-    document.querySelector(".humidity").innerHTML = `${humidity} %`
-
-    const wind_speed = Math.round(data.wind.speed);
-    document.querySelector(".wind").innerHTML = `${wind_speed} m/sec`
-
-    const visibility = Math.round(data.visibility / 1000) + " km"; 
-    document.querySelector(".visibility").innerHTML = `${visibility}`
-    const pressure = data.main.pressure + "  hPa";
-    document.querySelector(".pressure").innerHTML = pressure;
-
-  };
-  function renderGeolocation(city) {
-
-    const { name } = city[0];
-    document.querySelector(".cityName").innerHTML = name;
-    const state = city[0].state;
-    const country = city[0].country;
-    document.querySelector(".state").innerHTML = state;
-    document.querySelector(".country").innerHTML = country;
-
-  }
 }
+function renderWeather(data) {
+  const currentDate = document.querySelector(".currentDateWeather");
+  currentDate.innerHTML = formatDate(new Date(data.dt * 1000));
+  const temp = Math.round(data.main.temp)
+  document.querySelector(".temperature").innerHTML = `${temp}°`;
+  const feelsTemp = Math.round(data.main.feels_like);
+  document.querySelector(".feelsLike").innerHTML = `Feels like ${feelsTemp}°`
+  const weatherStatus = data.weather[0].main;
+  document.querySelector(".mainWeatherStatus").innerHTML = weatherStatus;
+  const currentTime = document.querySelector(".currentTime");
+  function updateTime() {
+    const now = new Date();
+    currentTime.innerHTML = now.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
+  const weatherDescription = data.weather[0].description;
+  document.querySelector(".weather_description").innerHTML = weatherDescription;
+  const iconCode = data.weather[0].icon;
+  const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  const iconElement = document.querySelector(".weather-icon");
+  if (iconElement) {
+    iconElement.src = iconUrl;
+  }
+  const riseTime = formatTime(data.sys.sunrise);
+  const setTime = formatTime(data.sys.sunset);
+  document.querySelector(".riseTime").innerHTML = `Rise ${riseTime} `
+  document.querySelector(".setTime").innerHTML = ` Set ${setTime} `
+
+  const station = data.name;
+  document.querySelector(".station").innerHTML = `Weather station in ${station}`
+  const humidity = data.main.humidity;
+  document.querySelector(".humidity").innerHTML = `${humidity} %`
+
+  const wind_speed = Math.round(data.wind.speed);
+  document.querySelector(".wind").innerHTML = `${wind_speed} m/sec`
+
+  const visibility = Math.round(data.visibility / 1000) + " km";
+  document.querySelector(".visibility").innerHTML = `${visibility}`
+  const pressure = data.main.pressure + "  hPa";
+  document.querySelector(".pressure").innerHTML = pressure;
+
+};
+
+
+function renderGeolocation(city) {
+
+  const { name } = city[0];
+  document.querySelector(".cityName").innerHTML = name;
+  const state = city[0].state;
+  const country = city[0].country;
+  document.querySelector(".state").innerHTML = state;
+  document.querySelector(".country").innerHTML = country;
+
+}
+
+function renderForecast(data) {
+  const dailyForecasts = data.list.filter(item =>
+    item.dt_txt.includes("12:00:00")
+  );
+
+  const container = document.querySelector(".forecast_Container");
+  container.innerHTML = "";
+
+  dailyForecasts.forEach((item, index) => {
+    const date = new Date(item.dt_txt);
+    const day = index === 0
+      ? "Today"
+      : date.toLocaleDateString("en-US", { weekday: "short" });
+
+    const card = document.createElement("div");
+    card.className =
+      "flex-1 text-center py-3 px-1 " +
+      (index === 0
+        ? "bg-violet-500/15 border-b-2 border-violet-400/40"
+        : "hover:bg-violet-500/[0.06] transition-colors");
+
+    card.innerHTML = `
+      <div class="text-[11px] text-violet-400/50 mb-1.5">${day}</div>
+      <img
+        src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png"
+        alt="${item.weather[0].description}"
+        class="w-8 h-8 mx-auto mb-1.5"
+      >
+      <div class="text-sm font-medium">${Math.round(item.main.temp)}°C</div>
+      <div class="text-[11px] text-white/30 mt-0.5">Feels ${Math.round(item.main.feels_like)}°C</div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
 
 geoLocation();
