@@ -227,6 +227,7 @@
     <main class="relative min-w-0 flex-1 overflow-x-hidden px-8 py-8 h-screen overflow-y-auto">
       <div class="mx-auto max-w-5xl space-y-6">
 
+        <div class="grid grid-cols-2  gap-6">
         <!-- Weather Card -->
         <div class="w-full max-w-xl bg-[#13131f] border border-violet-500/20 rounded-2xl overflow-hidden">
 
@@ -270,9 +271,9 @@
             <div class="flex flex-col items-end gap-2">
               <div class="text-3xl tracking-wide currentTime">20:30</div>
               <div
-                class="bg-black/25 border border-white/15 rounded-full px-3 py-1 text-xs font-medium flex items-center gap-1">
+                class="bg-white/25 border border-purple-600/15 rounded-full px-3 py-1 text-sm font-medium flex items-center gap-1 text-black">
                 <span class="weather_description"></span>
-                <img class="weather-icon w-6 h-6" src="" alt="Weather Condition">
+                <img class="weather-icon w-9 h-8" src="" alt="Weather Condition">
               </div>
               <div class="text-xs opacity-55"><span class="riseTime"></span>·<span class="setTime"></span></div>
               <div><span class="text-sm font-medium opacity-90 state">State</span>
@@ -361,6 +362,22 @@
           </div>
 
         </div>
+
+        <div class="grid grid-cols-3 gap-4 h-full  bg-linear-to-r from-violet-200 to-pink-200 p-3 rounded-4xl">
+
+      <div class="rounded-3xl bg-white/40 border border-pink-500/20 "></div>
+
+      <div class="rounded-3xl bg-white/40 border border-pink-500/20 "></div>
+      <div class="rounded-3xl   bg-white/40 border border-pink-500/20 row-span-2"></div>
+
+      <div class="col-span-2 rounded-3xl bg-white/40 border border-white/10 "></div>
+
+    </div>
+
+
+        </div>
+
+        
 
 
         <div class="flex items-center justify-between">
