@@ -1002,3 +1002,38 @@ function renderForecast(data) {
 
 
 geoLocation();
+
+const url = `https://newsdata.io/api/1/latest? 
+  apikey=${NEWSDATAIO_API_KEY}
+  &country=in
+  &language=en
+  &category=breaking,education,technology,business
+  &timezone=asia/kolkata
+  &prioritydomain=top
+  &video=0
+  &removeduplicate=1
+  &size=9`
+async function newData() {
+  const response = await fetch(url)
+  const data = await response.json()
+console.log(data);
+
+  
+}
+// newData()
+
+
+async function CurrentNews() {
+ const response = await fetch(
+  "https://api.currentsapi.services/v1/search?keywords=AI",
+  {
+    headers: {
+      Authorization: CURRENTNEWS_API_KEY,
+    },
+  }
+);
+const data = await response.json()
+console.log(data);
+
+}
+// CurrentNews()
