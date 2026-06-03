@@ -1003,7 +1003,9 @@ function renderForecast(data) {
 
 geoLocation();
 
-const url = `https://newsdata.io/api/1/latest? 
+async function newsAndUpadtaeDashboard() {
+  showLoader();
+const local = `https://newsdata.io/api/1/latest? 
   apikey=${NEWSDATAIO_API_KEY}
   &country=in
   &language=en
@@ -1013,27 +1015,57 @@ const url = `https://newsdata.io/api/1/latest?
   &video=0
   &removeduplicate=1
   &size=9`
-async function newData() {
-  const response = await fetch(url)
-  const data = await response.json()
-console.log(data);
+  const tech = "https://api.currentsapi.services/v1/search?keywords=AI";
+  const options = {
+  headers: {
+    Authorization: CURRENTNEWS_API_KEY,
+  },
+};
 
-  
-}
-// newData()
+try{
+  const [localResponse , techResponse] = await Promise.allSettled([
+    fetch(local),
+    fetch(tech,options)
+  ]);
 
+  if(localResponse.status === "fulfilled"){
+    const localData = await localResponse.value.json();
 
-async function CurrentNews() {
- const response = await fetch(
-  "https://api.currentsapi.services/v1/search?keywords=AI",
-  {
-    headers: {
-      Authorization: CURRENTNEWS_API_KEY,
-    },
+    if(localData.status === "error"){
+      notify("Error in Local News API", "error");
+    }else {
+        console.log("Local News:", localData);
   }
-);
-const data = await response.json()
-console.log(data);
+
+}else {
+      console.error(localResponse.reason);
+      notify("Local News Request Failed", "error");
+    }
+
+
+    if (techResponse.status === "fulfilled") {
+      const techData = await techResponse.value.json();
+
+      if (techData.status === 404) {
+        notify("Error in Tech News API", "error");
+      } else {
+        console.log("Tech News:", techData);
+
+      }
+    } else {
+      console.error(techResponse.reason);
+      notify("Tech News Request Failed", "error");
+    }
+ 
+
+
+}catch(error){
+  console.error(error);
+      notify("News System Error", "error");
+
+}finally{
+  hideLoader();
+}
 
 }
-// CurrentNews()
+// newsAndUpadtaeDashboard()
