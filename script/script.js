@@ -1005,16 +1005,19 @@ geoLocation();
 
 async function newsAndUpadtaeDashboard() {
   showLoader();
-const local = `https://newsdata.io/api/1/latest? 
-  apikey=${NEWSDATAIO_API_KEY}
-  &country=in
-  &language=en
-  &category=breaking,education,technology,business
-  &timezone=asia/kolkata
-  &prioritydomain=top
-  &video=0
-  &removeduplicate=1
-  &size=9`
+const local =  `https://newsdata.io/api/1/latest? 
+  apikey=${NEWSDATAIO_API_KEY}&country=us
+  &category=technology`
+// `https://newsdata.io/api/1/latest? 
+//   apikey=${NEWSDATAIO_API_KEY}
+//   &country=in
+//   &language=en
+//   &category=breaking,education,technology
+//   &timezone=asia/kolkata
+//   &prioritydomain=top
+//   &video=0
+//   &removeduplicate=1
+//   &size=9`
   const tech = "https://api.currentsapi.services/v1/search?keywords=AI";
   const options = {
   headers: {
@@ -1034,7 +1037,7 @@ try{
     if(localData.status === "error"){
       notify("Error in Local News API", "error");
     }else {
-        console.log("Local News:", localData);
+        renderLocalResponse(localData);
   }
 
 }else {
@@ -1049,7 +1052,7 @@ try{
       if (techData.status === 404) {
         notify("Error in Tech News API", "error");
       } else {
-        console.log("Tech News:", techData);
+        renderTechResponse(techData);
 
       }
     } else {
@@ -1067,5 +1070,75 @@ try{
   hideLoader();
 }
 
+};
+
+function renderLocalResponse(data){
+const container = document.querySelector(".swiper-wrapper");
+container.innerHTML = "";
+data.results.forEach((page)=>{
+  const item = document.createElement("div")
+  item.className = " swiper-slide"
+  item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
+  class="h-24 w-24 object-cover rounded-3xl m-4"
+  src="${page.image_url || 'src/assets/logo.svg'}"
+  onerror="this.src='src/assets/logo.svg'"
+  alt="img"
+/>
+                  <div class="flex flex-col gap-1 min-w-0 flex-1">
+                    <h2 class="text-md mt-6 line-clamp-2 wrap-break-word font-medium">${page.title}</h2>
+                    <span class="text-[12px] text-gray-500 ">${page.pubDate}</span>
+                    <span class="flex flex-row gap-3"><a href="link" class="text-purple-600truncate max-w-40 block"  target="_blank">${new URL(page.link).hostname}</a>
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+                <div class="flex flex-col gap-2  m-4">
+                  <p class="text-gray-500 line-clamp-3 wrap-break-word">${page.description || "No description available"}</p>
+                  
+                </div>
+                </div>`
+                container.appendChild(item);
+});
+
 }
+function renderTechResponse (data){
+
+// const container = document.querySelector(".swiper-wrapper");
+// container.innerHTML = "";
+// data.news.forEach((page)=>{
+//   const item = document.createElement("div")
+//   item.className = " swiper-slide"
+//   item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
+//   class="h-24 w-24 object-cover rounded-3xl m-4"
+//   src="${page.image || 'src/assets/logo.svg'}"
+//   onerror="this.src='src/assets/logo.svg'"
+//   alt="img"
+// />
+//                   <div class="flex flex-col gap-1 min-w-0 flex-1">
+//                     <h2 class="text-md mt-6 line-clamp-2 wrap-break-word font-medium">${page.title}</h2>
+//                     <span class="text-[12px] text-gray-500 ">${page.published}</span>
+//                     <span class="flex flex-row gap-3"><a href="link" class="text-purple-600truncate max-w-40 block"  target="_blank">${new URL(page.url).hostname}</a>
+//                     </span>
+
+//                   </div>
+
+
+//                 </div>
+
+//                 <div class="flex flex-col gap-2  m-4">
+//                   <p class="text-gray-500 line-clamp-3 wrap-break-word">${page.description || "No description available"}</p>
+                  
+//                 </div>
+//                 </div>`
+//                 container.appendChild(item);
+// });
+console.log("working");
+
+}
+const techNews_swiper = new Swiper(".techNews_swiper",{
+slidesPerView: 1
+});
 // newsAndUpadtaeDashboard()
