@@ -1002,22 +1002,21 @@ function renderForecast(data) {
 
 
 geoLocation();
-
+let localNewsData = null;
+let techNewsData = null;
 async function newsAndUpadtaeDashboard() {
   showLoader();
-const local =  `https://newsdata.io/api/1/latest? 
-  apikey=${NEWSDATAIO_API_KEY}&country=us
-  &category=technology`
-// `https://newsdata.io/api/1/latest? 
-//   apikey=${NEWSDATAIO_API_KEY}
-//   &country=in
-//   &language=en
-//   &category=breaking,education,technology
-//   &timezone=asia/kolkata
-//   &prioritydomain=top
-//   &video=0
-//   &removeduplicate=1
-//   &size=9`
+const local =  
+`https://newsdata.io/api/1/latest? 
+  apikey=${NEWSDATAIO_API_KEY}
+  &country=in
+  &language=en
+  &category=breaking,education,technology
+  &timezone=asia/kolkata
+  &prioritydomain=top
+  &video=0
+  &removeduplicate=1
+  &size=9`
   const tech = "https://api.currentsapi.services/v1/search?keywords=AI";
   const options = {
   headers: {
@@ -1031,36 +1030,19 @@ try{
     fetch(tech,options)
   ]);
 
-  if(localResponse.status === "fulfilled"){
-    const localData = await localResponse.value.json();
-
-    if(localData.status === "error"){
-      notify("Error in Local News API", "error");
-    }else {
-        renderLocalResponse(localData);
-  }
-
-}else {
-      console.error(localResponse.reason);
-      notify("Local News Request Failed", "error");
+   if (localResponse.status === "fulfilled") {
+      localNewsData = await localResponse.value.json();
     }
-
 
     if (techResponse.status === "fulfilled") {
-      const techData = await techResponse.value.json();
-
-      if (techData.status === 404) {
-        notify("Error in Tech News API", "error");
-      } else {
-        renderTechResponse(techData);
-
-      }
-    } else {
-      console.error(techResponse.reason);
-      notify("Tech News Request Failed", "error");
+      techNewsData = await techResponse.value.json();
     }
- 
 
+    // Default load  local
+    if (localNewsData) {
+      renderLocalResponse(localNewsData);
+    }
+  
 
 }catch(error){
   console.error(error);
@@ -1071,7 +1053,20 @@ try{
 }
 
 };
+const localBtn = document.querySelector(".local_news");
+const techBtn = document.querySelector(".tech_news");
+ 
+localBtn.addEventListener("click", () => {
+  if (localNewsData) {
+    renderLocalResponse(localNewsData);
+  }
+});
 
+techBtn.addEventListener("click", () => {
+  if (techNewsData) {
+    renderTechResponse(techNewsData);
+  }
+});
 function renderLocalResponse(data){
 const container = document.querySelector(".swiper-wrapper");
 container.innerHTML = "";
@@ -1102,43 +1097,55 @@ data.results.forEach((page)=>{
                 </div>`
                 container.appendChild(item);
 });
+console.log("local");
 
 }
 function renderTechResponse (data){
 
-// const container = document.querySelector(".swiper-wrapper");
-// container.innerHTML = "";
-// data.news.forEach((page)=>{
-//   const item = document.createElement("div")
-//   item.className = " swiper-slide"
-//   item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
-//   class="h-24 w-24 object-cover rounded-3xl m-4"
-//   src="${page.image || 'src/assets/logo.svg'}"
-//   onerror="this.src='src/assets/logo.svg'"
-//   alt="img"
-// />
-//                   <div class="flex flex-col gap-1 min-w-0 flex-1">
-//                     <h2 class="text-md mt-6 line-clamp-2 wrap-break-word font-medium">${page.title}</h2>
-//                     <span class="text-[12px] text-gray-500 ">${page.published}</span>
-//                     <span class="flex flex-row gap-3"><a href="link" class="text-purple-600truncate max-w-40 block"  target="_blank">${new URL(page.url).hostname}</a>
-//                     </span>
+const container = document.querySelector(".swiper-wrapper");
+container.innerHTML = "";
+data.news.forEach((page)=>{
+  const item = document.createElement("div")
+  item.className = " swiper-slide"
+  item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
+  class="h-24 w-24 object-cover rounded-3xl m-4"
+  src="${page.image || 'src/assets/logo.svg'}"
+  onerror="this.src='src/assets/logo.svg'"
+  alt="img"
+/>
+                  <div class="flex flex-col gap-1 min-w-0 flex-1">
+                    <h2 class="text-md mt-6 line-clamp-2 wrap-break-word font-medium">${page.title}</h2>
+                    <span class="text-[12px] text-gray-500 ">${page.published}</span>
+                    <span class="flex flex-row gap-3"><a href="link" class="text-purple-600truncate max-w-40 block"  target="_blank">${new URL(page.url).hostname}</a>
+                    </span>
 
-//                   </div>
+                  </div>
 
 
-//                 </div>
+                </div>
 
-//                 <div class="flex flex-col gap-2  m-4">
-//                   <p class="text-gray-500 line-clamp-3 wrap-break-word">${page.description || "No description available"}</p>
+                <div class="flex flex-col gap-2  m-4">
+                  <p class="text-gray-500 line-clamp-3 wrap-break-word">${page.description || "No description available"}</p>
                   
-//                 </div>
-//                 </div>`
-//                 container.appendChild(item);
-// });
-console.log("working");
+                </div>
+                </div>`
+                container.appendChild(item);
+});
+console.log("tech");
 
 }
 const techNews_swiper = new Swiper(".techNews_swiper",{
-slidesPerView: 1
+slidesPerView: 1,
+autoplay: {
+   delay: 5000,
+ },
+ 
 });
-// newsAndUpadtaeDashboard()
+document
+.querySelector(".custom-prev")
+.addEventListener("click", ()=> techNews_swiper.slidePrev());
+
+document
+.querySelector(".custom-next")
+.addEventListener("click", ()=> techNews_swiper.slideNext())
+newsAndUpadtaeDashboard()
