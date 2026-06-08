@@ -1006,8 +1006,8 @@ let localNewsData = null;
 let techNewsData = null;
 async function newsAndUpadtaeDashboard() {
   showLoader();
-const local =  
-`https://newsdata.io/api/1/latest? 
+  const local =
+    `https://newsdata.io/api/1/latest? 
   apikey=${NEWSDATAIO_API_KEY}
   &country=in
   &language=en
@@ -1019,19 +1019,51 @@ const local =
   &size=9`
   const tech = "https://api.currentsapi.services/v1/search?keywords=AI";
   const options = {
-  headers: {
-    Authorization: CURRENTNEWS_API_KEY,
-  },
-};
+    headers: {
+      Authorization: CURRENTNEWS_API_KEY,
+    },
+  };
 
-try{
-  const [localResponse , techResponse] = await Promise.allSettled([
-    fetch(local),
-    fetch(tech,options)
-  ]);
+  try {
+    const [localResponse, techResponse] = await Promise.allSettled([
+      fetch(local),
+      fetch(tech, options)
+    ]);
 
-   if (localResponse.status === "fulfilled") {
-      localNewsData = await localResponse.value.json();
+
+    if (localResponse.status === "fulfilled") {
+      const cache = JSON.parse(localStorage.getItem("localNews_Cache"));
+      const cache_lifespan = 10 * 60 * 1000;
+ 
+      if (!cache) {
+        localNewsData = await localResponse.value.json();
+        const local_Cache = {
+          timestamp: Date.now(),
+          results: localNewsData.results
+        }
+        localStorage.setItem("localNews_Cache", JSON.stringify(local_Cache));
+
+       
+
+      } else {
+        const timestamp = cache.timestamp;
+        const currentTimeLocal = Date.now();
+        let cacheAge = currentTimeLocal - timestamp;
+        if (cacheAge < cache_lifespan) {
+          localNewsData = cache;
+        } else {
+          localNewsData = await localResponse.value.json();
+          const local_Cache = {
+            timestamp: Date.now(),
+            results: localNewsData.results
+          }
+          localStorage.setItem("localNews_Cache", JSON.stringify(local_Cache));
+
+        }
+
+      }
+
+
     }
 
     if (techResponse.status === "fulfilled") {
@@ -1042,20 +1074,20 @@ try{
     if (localNewsData) {
       renderLocalResponse(localNewsData);
     }
-  
 
-}catch(error){
-  console.error(error);
-      notify("News System Error", "error");
 
-}finally{
-  hideLoader();
-}
+  } catch (error) {
+    console.error(error);
+    notify("News System Error", "error");
+
+  } finally {
+    hideLoader();
+  }
 
 };
 const localBtn = document.querySelector(".local_news");
 const techBtn = document.querySelector(".tech_news");
- 
+
 localBtn.addEventListener("click", () => {
   if (localNewsData) {
     renderLocalResponse(localNewsData);
@@ -1067,13 +1099,13 @@ techBtn.addEventListener("click", () => {
     renderTechResponse(techNewsData);
   }
 });
-function renderLocalResponse(data){
-const container = document.querySelector(".swiper-wrapper");
-container.innerHTML = "";
-data.results.forEach((page)=>{
-  const item = document.createElement("div")
-  item.className = " swiper-slide"
-  item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
+function renderLocalResponse(data) {
+  const container = document.querySelector(".swiper-wrapper");
+  container.innerHTML = "";
+  data.results.forEach((page) => {
+    const item = document.createElement("div")
+    item.className = " swiper-slide"
+    item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
   class="h-24 w-24 object-cover rounded-3xl m-4"
   src="${page.image_url || 'src/assets/logo.svg'}"
   onerror="this.src='src/assets/logo.svg'"
@@ -1095,19 +1127,18 @@ data.results.forEach((page)=>{
                   
                 </div>
                 </div>`
-                container.appendChild(item);
-});
-console.log("local");
+    container.appendChild(item);
+  });
 
 }
-function renderTechResponse (data){
+function renderTechResponse(data) {
 
-const container = document.querySelector(".swiper-wrapper");
-container.innerHTML = "";
-data.news.forEach((page)=>{
-  const item = document.createElement("div")
-  item.className = " swiper-slide"
-  item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
+  const container = document.querySelector(".swiper-wrapper");
+  container.innerHTML = "";
+  data.news.forEach((page) => {
+    const item = document.createElement("div")
+    item.className = " swiper-slide"
+    item.innerHTML = `<div class=""><div class="flex  rounded-3xl p-1.5"> <img
   class="h-24 w-24 object-cover rounded-3xl m-4"
   src="${page.image || 'src/assets/logo.svg'}"
   onerror="this.src='src/assets/logo.svg'"
@@ -1129,23 +1160,22 @@ data.news.forEach((page)=>{
                   
                 </div>
                 </div>`
-                container.appendChild(item);
-});
-console.log("tech");
+    container.appendChild(item);
+  });
 
 }
-const techNews_swiper = new Swiper(".techNews_swiper",{
-slidesPerView: 1,
-autoplay: {
-   delay: 5000,
- },
- 
+const techNews_swiper = new Swiper(".techNews_swiper", {
+  slidesPerView: 1,
+  autoplay: {
+    delay: 5000,
+  },
+
 });
 document
-.querySelector(".custom-prev")
-.addEventListener("click", ()=> techNews_swiper.slidePrev());
+  .querySelector(".custom-prev")
+  .addEventListener("click", () => techNews_swiper.slidePrev());
 
 document
-.querySelector(".custom-next")
-.addEventListener("click", ()=> techNews_swiper.slideNext())
+  .querySelector(".custom-next")
+  .addEventListener("click", () => techNews_swiper.slideNext())
 newsAndUpadtaeDashboard()
