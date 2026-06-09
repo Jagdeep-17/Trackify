@@ -245,6 +245,25 @@ function getFormattedDate() {
 // render one todo
 function loadTodos(todo) {
   const todoCard = document.createElement("div");
+  let dueDate = "Not Defined";
+
+if (todo.DueTime) {
+  const due = new Date(todo.DueTime).getTime();
+
+  const remainingTime = due - Date.now();
+
+  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (remainingTime % (1000 * 60 * 60 * 24)) /
+    (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (remainingTime % (1000 * 60 * 60)) /
+    (1000 * 60)
+  );
+
+  dueDate = `${days}:${hours}:${minutes}`;
+}
 
   // UPDATED CARD UI
   todoCard.className =
@@ -255,11 +274,12 @@ function loadTodos(todo) {
     <div class="relative z-10 flex items-start justify-between gap-4">
       
       <div class="flex flex-col gap-3 flex-1 min-w-0">
-        
+        <div class="flex items-center justify-between">
         <h3 class="text-lg font-semibold text-zinc-100 wrap-break-word leading-snug">
           ${todo.Title}
         </h3>
-
+  <div class="bg-violet-700 px-3 w-fit  text-white rounded-full ">${dueDate || "Not Defined"} </div>
+</div>
         <p class="text-sm text-zinc-400 wrap-break-word leading-relaxed">
           ${todo.Description}
         </p>
@@ -683,6 +703,7 @@ const minutes = Math.floor(
 );
 notify(`Remaining Time: ${days}d ${hours}h ${minutes}min `, "notify");
 }
+
 
 
 // create todo
@@ -1202,4 +1223,21 @@ document
 document
   .querySelector(".custom-next")
   .addEventListener("click", () => techNews_swiper.slideNext())
-newsAndUpadtaeDashboard()
+
+// newsAndUpadtaeDashboard()
+
+class task {
+  constructor(dueDuration) {
+    this.dueDuration = dueDuration;
+  }
+}
+task.prototype.snooze = ()=>{
+
+}
+
+task.prototype.markdone = ()=>{
+
+}
+task.prototype.isOverdue = ()=> {
+
+}
