@@ -17,6 +17,7 @@ const tickiBtn = document.querySelector(".ticki");
 const tickiDisplay = document.querySelector(".tickiDisplay");
 const stopStopwatchBtn = document.querySelector(".stopStopwatch");
 const resetStopwatchBtn = document.querySelector(".resetStopwatch");
+const dueTime = document.querySelector("#dueTime");
 
 createBtn.addEventListener("click", function () {
   todoForm.classList.toggle("hidden");
@@ -68,6 +69,7 @@ function notify(message, type = 'info') {
   let bgClass = "bg-blue-500";
   if (type === 'success') bgClass = "bg-green-500";
   if (type === 'error') bgClass = "bg-red-500";
+  if(type === 'notify') bgClass = "bg-violet-600"
 
   notification.className = `notification flex items-center p-4 rounded shadow-lg text-white ${bgClass}`;
 
@@ -665,7 +667,22 @@ tickiBtn.addEventListener("click", () => {
 
 })
 
+function notifyDueTime(dueDuration) {
+  const dueTimestamp = new Date(dueDuration).getTime();
+const currentTimestamp = Date.now();
 
+const remainingTime = dueTimestamp - currentTimestamp;
+const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+const hours = Math.floor(
+  (remainingTime % (1000 * 60 * 60 * 24)) /
+  (1000 * 60 * 60)
+);
+const minutes = Math.floor(
+  (remainingTime % (1000 * 60 * 60)) /
+  (1000 * 60)
+);
+notify(`Remaining Time: ${days}d ${hours}h ${minutes}min `, "notify");
+}
 
 
 // create todo
@@ -676,7 +693,7 @@ submitBtn.addEventListener("click", function (e) {
   let descriptionText = description.value.trim();
   let tagvalue = tagNameDropdown.value;
   let createdAtValue = getFormattedDate();
-
+let dueDuration = dueTime.value;
   if (titleText === "" || descriptionText === "") {
     alert("Input field is empty");
     return;
@@ -706,7 +723,8 @@ submitBtn.addEventListener("click", function (e) {
       CompletedAt: null,
       CreatedAt: createdAtValue,
       UpdatedAt: null,
-      Id: Date.now()
+      Id: Date.now(),
+      DueTime: dueDuration
     };
 
     let todos = getTodos();
@@ -715,6 +733,12 @@ submitBtn.addEventListener("click", function (e) {
     saveTodos(todos);
 
     renderTodos();
+    if(!dueDuration){
+      notify(`Created ${titleText}`, "notify")
+    }else{
+notifyDueTime(dueDuration);
+    }
+    
   }
 
 
