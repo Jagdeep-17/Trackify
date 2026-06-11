@@ -248,21 +248,8 @@ function loadTodos(todo) {
   let dueDate = "Not Defined";
 
 if (todo.DueTime) {
-  const due = new Date(todo.DueTime).getTime();
-
-  const remainingTime = due - Date.now();
-
-  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (remainingTime % (1000 * 60 * 60 * 24)) /
-    (1000 * 60 * 60)
-  );
-  const minutes = Math.floor(
-    (remainingTime % (1000 * 60 * 60)) /
-    (1000 * 60)
-  );
-
-  dueDate = `${days}:${hours}:${minutes}`;
+  dueDate= renderDueDate(todo.DueTime);
+ 
 }
 
   // UPDATED CARD UI
@@ -278,7 +265,7 @@ if (todo.DueTime) {
         <h3 class="text-lg font-semibold text-zinc-100 wrap-break-word leading-snug">
           ${todo.Title}
         </h3>
-  <div class="bg-violet-700 px-3 w-fit  text-white rounded-full ">${dueDate || "Not Defined"} </div>
+  <div class="bg-violet-700 px-3 w-fit  text-white rounded-full due-date">${dueDate || "Not Defined"} </div>
 </div>
         <p class="text-sm text-zinc-400 wrap-break-word leading-relaxed">
           ${todo.Description}
@@ -315,6 +302,32 @@ if (todo.DueTime) {
   }
 
   savedTodoBox.appendChild(todoCard);
+  const dueElement = todoCard.querySelector(".due-date");
+
+if (todo.DueTime) {
+  setInterval(() => {
+    dueElement.textContent = renderDueDate(todo.DueTime);
+  }, 1000);
+}
+}
+
+function renderDueDate(dueDate){
+    if (!dueDate) return "Not Defined";
+ const due = new Date(dueDate).getTime();
+
+  const remainingTime = due - Date.now();
+
+  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (remainingTime % (1000 * 60 * 60 * 24)) /
+    (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (remainingTime % (1000 * 60 * 60)) /
+    (1000 * 60)
+  );
+
+ return  `${days}:${hours}:${minutes}`;
 }
 
 
@@ -688,6 +701,7 @@ tickiBtn.addEventListener("click", () => {
 })
 
 function notifyDueTime(dueDuration) {
+  
   const dueTimestamp = new Date(dueDuration).getTime();
 const currentTimestamp = Date.now();
 
@@ -731,6 +745,7 @@ let dueDuration = dueTime.value;
     editingTodo.CreatedAt_Display = "Edited at " + new Date().toLocaleString();
     editingTodo.UpdatedAt = getFormattedDate();
     editingTodo.Tag = tagvalue;
+    editingTodo.DueTime = dueDuration;
     saveTodos(allTodos)
     renderTodos()
     currentlyEditingId = null;
