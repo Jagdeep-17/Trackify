@@ -305,17 +305,29 @@ if (todo.DueTime) {
   const dueElement = todoCard.querySelector(".due-date");
 
 if (todo.DueTime) {
-  setInterval(() => {
+ const timer = setInterval(() => {
+     const due = new Date(todo.DueTime).getTime();
+  const remainingTime = due - Date.now();
+
+  if(remainingTime <=0){
+dueElement.textContent = "Expired"
+clearInterval(timer);
+return;
+  }
+
     dueElement.textContent = renderDueDate(todo.DueTime);
   }, 1000);
+
 }
 }
+
 
 function renderDueDate(dueDate){
     if (!dueDate) return "Not Defined";
  const due = new Date(dueDate).getTime();
 
   const remainingTime = due - Date.now();
+  
 
   const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
   const hours = Math.floor(
@@ -1239,20 +1251,6 @@ document
   .querySelector(".custom-next")
   .addEventListener("click", () => techNews_swiper.slideNext())
 
-// newsAndUpadtaeDashboard()
+newsAndUpadtaeDashboard()
 
-class task {
-  constructor(dueDuration) {
-    this.dueDuration = dueDuration;
-  }
-}
-task.prototype.snooze = ()=>{
 
-}
-
-task.prototype.markdone = ()=>{
-
-}
-task.prototype.isOverdue = ()=> {
-
-}
